@@ -1,0 +1,52 @@
+{
+  "name": "component-google-spreadsheet-controls",
+  "version": "0.1.0",
+  "description": "A widget settings UI component to provide various controls for configuration of a Google Spreadsheet",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rise-Vision/component-google-spreadsheet-controls.git"
+  },
+  "author": "Rise Vision",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Rise-Vision/component-google-spreadsheet-controls/issues"
+  },
+  "homepage": "https://github.com/Rise-Vision/component-google-spreadsheet-controls",
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "chai-as-promised": "~4.1.1",
+    "event-stream": "^3.1.5",
+    "express": "^4.6.1",
+    "gulp": "~3.8.1",
+    "gulp-bump": "~0.1.8",
+    "gulp-concat": "^2.2.0",
+    "gulp-html2string": "git://github.com/Rise-Vision/gulp-html2string",
+    "gulp-jshint": "~1.5.5",
+    "gulp-minify-css": "^0.3.5",
+    "gulp-protractor": "~0.0.8",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-rename": "~1.2.0",
+    "run-sequence": "^0.3.2",
+    "gulp-sass": "^0.7.2",
+    "gulp-uglify": "^0.3.1",
+    "gulp-util": "~2.2.17",
+    "gulp-watch": "^0.6.8",
+    "jshint-stylish": "^0.2.0",
+    "karma": "~0.12.16",
+    "karma-chai": "^0.1.0",
+    "karma-chai-plugins": "^0.2.1",
+    "karma-coverage": "~0.2.4",
+    "karma-jasmine": "~0.1.5",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-mocha": "~0.1.4",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "mocha": "~1.20.1",
+    "phantomjs": "^1.9.7-9",
+    "widget-tester": "git://github.com/Rise-Vision/widget-tester.git"
+  }
+}
