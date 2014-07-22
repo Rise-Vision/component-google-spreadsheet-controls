@@ -1,15 +1,16 @@
 /* jshint node: true */
 
 (function () {
-  'use strict';
+  "use strict";
 
   var gulp = require("gulp");
   var gutil = require("gulp-util");
   var rimraf = require("gulp-rimraf");
   var concat = require("gulp-concat");
   var bump = require("gulp-bump");
-  var html2string = require("gulp-html2string");
+  var html2js = require("gulp-html2js");
   var jshint = require("gulp-jshint");
+  var sass = require("gulp-sass");
   var minifyCSS = require("gulp-minify-css");
   var uglify = require("gulp-uglify");
   var runSequence = require("run-sequence");
@@ -78,17 +79,21 @@
       .pipe(gulp.dest("dist/css"));
   });
 
-  gulp.task("html2js", function () {
-    return gulp.src("src/html/*.html")
-      .pipe(html2string({ createObj: true, base: path.join(__dirname, "src/html"), objName: "TEMPLATES" }))
+  gulp.task("angular:html2js", function() {
+    return gulp.src("src/angular/*.html")
+      .pipe(html2js({
+        outputModuleName: "risevision.widget.common.google-spreadsheet-controls",
+        useStrict: true,
+        base: "src/angular"
+      }))
       .pipe(rename({extname: ".js"}))
-      .pipe(gulp.dest("tmp/templates/"));
+      .pipe(gulp.dest("tmp/ng-templates"));
   });
 
-  gulp.task("angular", ["html2js", "lint"], function () {
+  gulp.task("angular", ["angular:html2js", "lint"], function () {
     return gulp.src([
       "src/config/config.js",
-      "tmp/templates/*.js", //template js files
+      "tmp/ng-templates/*.js",
       "src/angular/*.js"])
 
       .pipe(concat("google-spreadsheet-controls.js"))
@@ -108,18 +113,19 @@
     runSequence(["clean", "config"], ["js-uglify"/*, "css-min"*/], cb);
   });
 
-  //TODO: Testing tasks are a work in progress
-
-  gulp.task("webdriver_update", factory.webdriveUpdate());
   gulp.task("e2e:server-close", factory.testServerClose());
   gulp.task("e2e:server", factory.testServer());
+  gulp.task("webdriver_update", factory.webdriveUpdate());
+  gulp.task("test:e2e:ng:core", factory.testE2EAngular());
 
-  gulp.task("test", function(cb) {
-    runSequence("build", "e2e:server", "e2e:server-close", cb);
+  gulp.task("test:metrics", factory.metrics());
+
+  //TODO: Angular e2e testing
+
+  gulp.task("test", ["build"], function(cb) {
+    runSequence("e2e:server", "e2e:server-close", cb);
   });
 
-  gulp.task("default", function(cb) {
-    runSequence("test", "build", cb);
-  });
+  gulp.task("default", ["build"]);
 
 })();

@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "angular": "1.2.18",
-    "bootstrap": "git://github.com/Rise-Vision/bootstrap#3.1.1-rv",
-    "jquery": "1.11.0"
+    "rv-bootstrap": "git://github.com/Rise-Vision/bootstrap#3.1.1-rv",
+    "jquery": "1.11.0",
+    "widget-settings-ui-components": "git://github.com/Rise-Vision/widget-settings-ui-components"
   }
 }

@@ -1,0 +1,67 @@
+<div class="url-options">
+  <div class="form-group">
+    <label>{{ "cells.label" | translate }}</label>
+    <div class="radio">
+      <label for="cells-sheet">{{ "cells.sheet" | translate }}</label>
+      <input id="cells-sheet" type="radio" name="cells" value="sheet">
+    </div>
+    <div class="radio">
+      <label for="cells-range">{{ "cells.range" | translate }}</label>
+      <input id="cells-range" type="radio" name="cells" value="range">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="range">{{ "range.label" | translate }}</label>
+    <tooltip data-toggle="popover" data-placement="right"
+             data-content="{{'range.tooltip' | translate}}">
+    </tooltip>
+    <div class="row">
+      <div class="col-xs-8">
+        <input id="range" name="range" class="small form-control" type="text" />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="sheet">{{ "sheet" | translate }}</label>
+    <div class="row">
+      <div class="col-xs-8">
+        <select id="sheet" name="sheet" class="form-control"></select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="headerRows">{{ "headerRows.label" }}</label>
+    <tooltip data-toggle="popover" data-placement="top"
+             data-content="{{'headerRows.tooltip' | translate}}">
+    </tooltip>
+    <div class="row">
+      <div class="col-xs-4 col-sm-3">
+        <select id="headerRows" name="headerRows" class="form-control">
+          <option value="-1">Auto</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="refresh">{{ "refresh.label" | translate }}</label>
+  <tooltip data-toggle="popover" data-placement="top"
+           data-content="{{'refresh.tooltip' | translate}}">
+  </tooltip>
+  <div class="row">
+    <div class="col-xs-4 col-sm-3">
+      <input id="refresh" name="refresh" type="text" class="form-control" />
+    </div>
+  </div>
+</div>
