@@ -11,11 +11,11 @@ app.run(["$templateCache", function($templateCache) {
     "    <label>{{ \"cells.label\" | translate }}</label>\n" +
     "    <div class=\"radio\">\n" +
     "      <label for=\"cells-sheet\">{{ \"cells.sheet\" | translate }}</label>\n" +
-    "      <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" value=\"sheet\">\n" +
+    "      <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"sheet\">\n" +
     "    </div>\n" +
     "    <div class=\"radio\">\n" +
     "      <label for=\"cells-range\">{{ \"cells.range\" | translate }}</label>\n" +
-    "      <input id=\"cells-range\" type=\"radio\" name=\"cells\" value=\"range\">\n" +
+    "      <input id=\"cells-range\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"range\">\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
@@ -25,7 +25,7 @@ app.run(["$templateCache", function($templateCache) {
     "    </tooltip>\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"col-xs-8\">\n" +
-    "        <input id=\"range\" name=\"range\" class=\"small form-control\" type=\"text\" />\n" +
+    "        <input id=\"range\" name=\"range\" ng-model=\"spreadsheet.range\" ng-disabled=\"spreadsheet.cells !== 'range'\" class=\"form-control\" type=\"text\" />\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
@@ -33,32 +33,17 @@ app.run(["$templateCache", function($templateCache) {
     "    <label for=\"sheet\">{{ \"sheet\" | translate }}</label>\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"col-xs-8\">\n" +
-    "        <select id=\"sheet\" name=\"sheet\" class=\"form-control\"></select>\n" +
+    "        <select id=\"sheet\" name=\"sheet\" ng-model=\"spreadsheet.sheet\" class=\"form-control\"></select>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label for=\"headerRows\">{{ \"headerRows.label\" }}</label>\n" +
-    "    <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "             data-content=\"{{'headerRows.tooltip' | translate}}\">\n" +
-    "    </tooltip>\n" +
-    "    <div class=\"row\">\n" +
-    "      <div class=\"col-xs-4 col-sm-3\">\n" +
-    "        <select id=\"headerRows\" name=\"headerRows\" class=\"form-control\">\n" +
-    "          <option value=\"-1\">Auto</option>\n" +
-    "          <option value=\"0\">0</option>\n" +
-    "          <option value=\"1\">1</option>\n" +
-    "          <option value=\"2\">2</option>\n" +
-    "          <option value=\"3\">3</option>\n" +
-    "          <option value=\"4\">4</option>\n" +
-    "          <option value=\"5\">5</option>\n" +
-    "          <option value=\"6\">6</option>\n" +
-    "          <option value=\"7\">7</option>\n" +
-    "          <option value=\"8\">8</option>\n" +
-    "          <option value=\"9\">9</option>\n" +
-    "          <option value=\"10\">10</option>\n" +
-    "        </select>\n" +
-    "      </div>\n" +
+    "    <div class=\"checkbox\">\n" +
+    "      <label for=\"headerRow\">{{ \"headerRow.label\" }}</label>\n" +
+    "      <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
+    "               data-content=\"{{'headerRow.tooltip' | translate}}\">\n" +
+    "      </tooltip>\n" +
+    "      <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\">\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -69,7 +54,7 @@ app.run(["$templateCache", function($templateCache) {
     "  </tooltip>\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"col-xs-4 col-sm-3\">\n" +
-    "      <input id=\"refresh\" name=\"refresh\" type=\"text\" class=\"form-control\" />\n" +
+    "      <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -77,11 +62,41 @@ app.run(["$templateCache", function($templateCache) {
 }]);
 })();
 
-angular.module("risevision.widget.common")
-  .directive("spreadsheetControls", ["$log"], function ($log) {
+angular.module("risevision.widget.common.google-spreadsheet-controls")
+  .directive("spreadsheetControls", ["$document", "$window", "$log", "$templateCache",
+    function ($document, $window, $log, $templateCache) {
     return {
-      restrict: "AE",
-      template: TEMPLATES["google-drive-picker-template.html"],
-      scope: {}
+      restrict: "E",
+      scope: {
+        spreadsheet: "="
+      },
+      template: $templateCache.get("spreadsheet-controls.html"),
+      link: function (scope) {
+        scope.defaultSetting = {
+          cells: "sheet",
+          range: "",
+          sheet: "",
+          headerRow: false,
+          refresh: "60"
+        };
+
+        scope.defaults = function(obj) {
+          if (obj) {
+            for (var i = 1, length = arguments.length; i < length; i++) {
+              var source = arguments[i];
+              for (var prop in source) {
+                if (obj[prop] === void 0) {
+                  obj[prop] = source[prop];
+                }
+              }
+            }
+          }
+          return obj;
+        };
+
+        scope.$watch("spreadsheet", function(spreadsheet) {
+          scope.defaults(spreadsheet, scope.defaultSetting);
+        });
+      }
     };
-  });
+  }]);
