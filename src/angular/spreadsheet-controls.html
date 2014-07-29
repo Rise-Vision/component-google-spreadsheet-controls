@@ -2,12 +2,14 @@
   <div class="form-group">
     <label>{{ "cells.label" | translate }}</label>
     <div class="radio">
-      <label for="cells-sheet">{{ "cells.sheet" | translate }}</label>
-      <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet">
+      <label for="cells-sheet">
+        <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet"> {{ "cells.sheet" | translate }}
+      </label>
     </div>
     <div class="radio">
-      <label for="cells-range">{{ "cells.range" | translate }}</label>
-      <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range">
+      <label for="cells-range">
+        <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range"> {{ "cells.range" | translate }}
+      </label>
     </div>
   </div>
   <div class="form-group">
@@ -31,11 +33,13 @@
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <label for="headerRow">{{ "headerRow.label" }}</label>
+      <label for="headerRow">
+        <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "headerRow.label" }}
+      </label>
       <tooltip data-toggle="popover" data-placement="top"
                data-content="{{'headerRow.tooltip' | translate}}">
       </tooltip>
-      <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox">
+
     </div>
   </div>
 </div>
