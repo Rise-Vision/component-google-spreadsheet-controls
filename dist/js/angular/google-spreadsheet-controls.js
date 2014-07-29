@@ -10,12 +10,14 @@ app.run(["$templateCache", function($templateCache) {
     "  <div class=\"form-group\">\n" +
     "    <label>{{ \"cells.label\" | translate }}</label>\n" +
     "    <div class=\"radio\">\n" +
-    "      <label for=\"cells-sheet\">{{ \"cells.sheet\" | translate }}</label>\n" +
-    "      <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"sheet\">\n" +
+    "      <label for=\"cells-sheet\">\n" +
+    "        <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"sheet\"> {{ \"cells.sheet\" | translate }}\n" +
+    "      </label>\n" +
     "    </div>\n" +
     "    <div class=\"radio\">\n" +
-    "      <label for=\"cells-range\">{{ \"cells.range\" | translate }}</label>\n" +
-    "      <input id=\"cells-range\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"range\">\n" +
+    "      <label for=\"cells-range\">\n" +
+    "        <input id=\"cells-range\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"range\"> {{ \"cells.range\" | translate }}\n" +
+    "      </label>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
@@ -39,11 +41,13 @@ app.run(["$templateCache", function($templateCache) {
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
     "    <div class=\"checkbox\">\n" +
-    "      <label for=\"headerRow\">{{ \"headerRow.label\" }}</label>\n" +
+    "      <label for=\"headerRow\">\n" +
+    "        <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"headerRow.label\" }}\n" +
+    "      </label>\n" +
     "      <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
     "               data-content=\"{{'headerRow.tooltip' | translate}}\">\n" +
     "      </tooltip>\n" +
-    "      <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\">\n" +
+    "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
