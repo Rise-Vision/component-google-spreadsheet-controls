@@ -1,0 +1,34 @@
+<div class="component">
+  <div class="page-header">
+    <h1 class="page">Spreadsheet Controls</h1>
+  </div>
+
+  <p class="lead">An Angular directive that allows configuration of a chosen Google Spreadsheet</p>
+
+  <p><strong>Dependencies</strong> <span class="label label-info">tooltip</span></p>
+
+  <h3 class="add-top">Usage</h3>
+  <hljs include="'spreadsheet-controls-usage'"></hljs>
+
+  <h3>Script Includes</h3>
+  <p>Make sure you include the following files in <code>index.html</code></p>
+  <hljs include="'script-includes'"></hljs>
+
+  <!-- Dynamic Example -->
+  <div class="examples">
+    <h3>Example</h3>
+    <spreadsheet-controls spreadsheet="spreadsheet"></spreadsheet-controls>
+  </div>
+</div>
+
+<script type="text/ng-template" id="script-includes">
+  components/component-google-spreadsheet-controls/dist/js/angular/google-spreadsheet-controls.js
+  components/widget-settings-ui-components/dist/js/angular/tooltip.js
+</script>
+
+<!-- Code Snippet -->
+<script type="text/ng-template" id="spreadsheet-controls-usage">
+  <form role="form">
+    <spreadsheet-controls spreadsheet="settings.additionalParams.spreadsheet"></spreadsheet-controls>
+  </form>
+</script>
