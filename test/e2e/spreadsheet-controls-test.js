@@ -1,3 +1,5 @@
+/* jshint expr: true */
+
 (function() {
 
   "use strict";
@@ -10,13 +12,53 @@
   chai.use(chaiAsPromised);
   var expect = chai.expect;
 
-  var fs = require("fs");
-
   browser.driver.manage().window().setSize(1024, 768);
 
-  describe("Column Setting component", function() {
+  describe("Google Spreadsheet Controls Component", function() {
     beforeEach(function (){
       browser.get("/test/e2e/spreadsheet-controls-test.html");
+    });
+
+    it("Should correctly load default defaults", function () {
+      expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
+        to.eventually.equal("sheet");
+
+      expect(element(by.id("range")).getAttribute("disabled")).
+        to.eventually.not.be.null;
+
+      expect(element(by.id("headerRow")).getAttribute("checked")).
+        to.eventually.be.null;
+
+      expect(element(by.id("refresh")).getAttribute("value")).
+        to.eventually.equal("60");
+    });
+
+    it("Should enable range field when range cells is clicked", function () {
+      //click on range cells radio button
+      element(by.id("cells-range")).click();
+
+      expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
+        to.eventually.equal("range");
+
+      expect(element(by.id("range")).getAttribute("disabled")).
+        to.eventually.be.null;
+
+    });
+
+    it("Should disable range field when sheet cells is clicked", function () {
+      //click on sheet cells radio button
+      element(by.id("cells-sheet")).click();
+
+      expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
+        to.eventually.equal("sheet");
+
+      expect(element(by.id("range")).getAttribute("disabled")).
+        to.eventually.not.be.null;
+
+    });
+
+    xit("Should correctly save settings", function (done) {
+      //TODO
     });
 
   });
