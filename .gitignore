@@ -6,3 +6,4 @@ coverage/
 src/config/config.js
 src/sass/**/*.css
 tmp
+reports/

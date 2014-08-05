@@ -116,14 +116,24 @@
   gulp.task("e2e:server-close", factory.testServerClose());
   gulp.task("e2e:server", factory.testServer());
   gulp.task("webdriver_update", factory.webdriveUpdate());
-  gulp.task("test:e2e:ng:core", factory.testE2EAngular());
+  gulp.task("test:ensure-directory", factory.ensureReportDirectory());
+
+  gulp.task("test:e2e:ng:core", factory.testE2EAngular({
+    testFiles: "./test/e2e/spreadsheet-controls-test.js"
+  }));
 
   gulp.task("test:metrics", factory.metrics());
 
-  //TODO: Angular e2e testing
+  gulp.task("test:e2e:ng", ["test:ensure-directory", "webdriver_update"], function (cb) {
+    return runSequence("e2e:server", "test:e2e:ng:core",
+      function (err) {
+        gulp.run("e2e:server-close");
+        cb(err);
+      });
+  });
 
-  gulp.task("test", ["build"], function(cb) {
-    runSequence("e2e:server", "e2e:server-close", cb);
+  gulp.task("test", ["build"], function (cb) {
+    return runSequence("test:e2e:ng", "test:metrics", cb);
   });
 
   gulp.task("default", ["build"]);
