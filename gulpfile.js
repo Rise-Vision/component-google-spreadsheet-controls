@@ -10,8 +10,6 @@
   var bump = require("gulp-bump");
   var html2js = require("gulp-html2js");
   var jshint = require("gulp-jshint");
-  var sass = require("gulp-sass");
-  var minifyCSS = require("gulp-minify-css");
   var uglify = require("gulp-uglify");
   var runSequence = require("run-sequence");
   var path = require("path");
@@ -58,27 +56,6 @@
     // .pipe(jshint.reporter("fail"));
   });
 
-  gulp.task("sass", function () {
-    return gulp.src("src/sass/main.scss")
-      .pipe(sass())
-      .pipe(gulp.dest("tmp/css"));
-  });
-
-  gulp.task("css", ["sass"], function () {
-    return gulp.src("tmp/css/main.css")
-      .pipe(rename("google-spreadsheet-controls.css"))
-      .pipe(gulp.dest("dist/css"));
-  });
-
-  gulp.task("css-min", ["css"], function () {
-    return gulp.src("dist/css/google-spreadsheet-controls.css")
-      .pipe(minifyCSS({keepBreaks:true}))
-      .pipe(rename(function (path) {
-        path.basename += ".min";
-      }))
-      .pipe(gulp.dest("dist/css"));
-  });
-
   gulp.task("angular:html2js", function() {
     return gulp.src("src/angular/*.html")
       .pipe(html2js({
@@ -110,7 +87,7 @@
   });
 
   gulp.task("build", function (cb) {
-    runSequence(["clean", "config"], ["js-uglify"/*, "css-min"*/], cb);
+    runSequence(["clean", "config"], ["js-uglify"], cb);
   });
 
   gulp.task("e2e:server-close", factory.testServerClose());
