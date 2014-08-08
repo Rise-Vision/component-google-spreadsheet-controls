@@ -1,4 +1,10 @@
-var CONFIG = {};
+/* global CONFIG: true */
+/* exported CONFIG */
+if (typeof CONFIG === "undefined") {
+  var CONFIG = {
+    // variables go here
+  };
+}
 
 (function(module) {
 try { app = angular.module("risevision.widget.common.google-spreadsheet-controls"); }
