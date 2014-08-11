@@ -1,21 +1,21 @@
 <div class="url-options">
   <div class="form-group">
-    <label>{{ "cells.label" | translate }}</label>
+    <label>{{ "spreadsheet.cells.label" | translate }}</label>
     <div class="radio">
       <label for="cells-sheet">
-        <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet"> {{ "cells.sheet" | translate }}
+        <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet"> {{ "spreadsheet.cells.sheet" | translate }}
       </label>
     </div>
     <div class="radio">
       <label for="cells-range">
-        <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range"> {{ "cells.range" | translate }}
+        <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range"> {{ "spreadsheet.cells.range" | translate }}
       </label>
     </div>
   </div>
   <div class="form-group">
-    <label for="range">{{ "range.label" | translate }}</label>
+    <label for="range">{{ "spreadsheet.range.label" | translate }}</label>
     <tooltip data-toggle="popover" data-placement="right"
-             data-content="{{'range.tooltip' | translate}}">
+             data-content="{{'spreadsheet.range.tooltip' | translate}}">
     </tooltip>
     <div class="row">
       <div class="col-xs-8">
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="sheet">{{ "sheet" | translate }}</label>
+    <label for="sheet">{{ "spreadsheet.sheet" | translate }}</label>
     <div class="row">
       <div class="col-xs-8">
         <select id="sheet" name="sheet" ng-model="spreadsheet.sheet" class="form-control"></select>
@@ -34,19 +34,19 @@
   <div class="form-group">
     <div class="checkbox">
       <label for="headerRow">
-        <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "headerRow.label" }}
+        <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "spreadsheet.headerRow.label" }}
       </label>
       <tooltip data-toggle="popover" data-placement="top"
-               data-content="{{'headerRow.tooltip' | translate}}">
+               data-content="{{'spreadsheet.headerRow.tooltip' | translate}}">
       </tooltip>
 
     </div>
   </div>
 </div>
 <div class="form-group">
-  <label for="refresh">{{ "refresh.label" | translate }}</label>
+  <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
   <tooltip data-toggle="popover" data-placement="top"
-           data-content="{{'refresh.tooltip' | translate}}">
+           data-content="{{'spreadsheet.refresh.tooltip' | translate}}">
   </tooltip>
   <div class="row">
     <div class="col-xs-4 col-sm-3">

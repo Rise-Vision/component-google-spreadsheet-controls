@@ -52,6 +52,11 @@
       .pipe(jshint.reporter("fail"));
   });
 
+  gulp.task("i18n", function() {
+    return gulp.src("src/locales/**/*.json")
+      .pipe(gulp.dest("dist/locales"));
+  });
+
   gulp.task("angular:html2js", function() {
     return gulp.src("src/angular/*.html")
       .pipe(html2js({
@@ -83,7 +88,7 @@
   });
 
   gulp.task("build", function (cb) {
-    runSequence(["clean", "config"], ["js-uglify"], cb);
+    runSequence(["clean", "config"], ["js-uglify", "i18n"], cb);
   });
 
   gulp.task("e2e:server-close", factory.testServerClose());
