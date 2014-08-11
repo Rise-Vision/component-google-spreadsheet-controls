@@ -16,12 +16,6 @@
   var rename = require("gulp-rename");
   var factory = require("widget-tester").gulpTaskFactory;
 
-  var jsFiles = [
-    "src/**/*.js",
-    "test/**/*.js",
-    "!./src/components/**/*"
-  ];
-
   gulp.task("clean-dist", function () {
     return gulp.src("dist", {read: false})
       .pipe(rimraf());
@@ -50,10 +44,12 @@
   });
 
   gulp.task("lint", function() {
-    return gulp.src(jsFiles)
+    return gulp.src([
+      "src/**/*.js",
+      "test/**/*.js"])
       .pipe(jshint())
-      .pipe(jshint.reporter("jshint-stylish"));
-    // .pipe(jshint.reporter("fail"));
+      .pipe(jshint.reporter("jshint-stylish"))
+      .pipe(jshint.reporter("fail"));
   });
 
   gulp.task("angular:html2js", function() {
