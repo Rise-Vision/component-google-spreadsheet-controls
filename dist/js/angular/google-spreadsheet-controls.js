@@ -14,22 +14,22 @@ app.run(["$templateCache", function($templateCache) {
   $templateCache.put("spreadsheet-controls.html",
     "<div class=\"url-options\">\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label>{{ \"cells.label\" | translate }}</label>\n" +
+    "    <label>{{ \"spreadsheet.cells.label\" | translate }}</label>\n" +
     "    <div class=\"radio\">\n" +
     "      <label for=\"cells-sheet\">\n" +
-    "        <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"sheet\"> {{ \"cells.sheet\" | translate }}\n" +
+    "        <input id=\"cells-sheet\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"sheet\"> {{ \"spreadsheet.cells.sheet\" | translate }}\n" +
     "      </label>\n" +
     "    </div>\n" +
     "    <div class=\"radio\">\n" +
     "      <label for=\"cells-range\">\n" +
-    "        <input id=\"cells-range\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"range\"> {{ \"cells.range\" | translate }}\n" +
+    "        <input id=\"cells-range\" type=\"radio\" name=\"cells\" ng-model=\"spreadsheet.cells\" value=\"range\"> {{ \"spreadsheet.cells.range\" | translate }}\n" +
     "      </label>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label for=\"range\">{{ \"range.label\" | translate }}</label>\n" +
+    "    <label for=\"range\">{{ \"spreadsheet.range.label\" | translate }}</label>\n" +
     "    <tooltip data-toggle=\"popover\" data-placement=\"right\"\n" +
-    "             data-content=\"{{'range.tooltip' | translate}}\">\n" +
+    "             data-content=\"{{'spreadsheet.range.tooltip' | translate}}\">\n" +
     "    </tooltip>\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"col-xs-8\">\n" +
@@ -38,7 +38,7 @@ app.run(["$templateCache", function($templateCache) {
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label for=\"sheet\">{{ \"sheet\" | translate }}</label>\n" +
+    "    <label for=\"sheet\">{{ \"spreadsheet.sheet\" | translate }}</label>\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"col-xs-8\">\n" +
     "        <select id=\"sheet\" name=\"sheet\" ng-model=\"spreadsheet.sheet\" class=\"form-control\"></select>\n" +
@@ -48,19 +48,19 @@ app.run(["$templateCache", function($templateCache) {
     "  <div class=\"form-group\">\n" +
     "    <div class=\"checkbox\">\n" +
     "      <label for=\"headerRow\">\n" +
-    "        <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"headerRow.label\" }}\n" +
+    "        <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"spreadsheet.headerRow.label\" }}\n" +
     "      </label>\n" +
     "      <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "               data-content=\"{{'headerRow.tooltip' | translate}}\">\n" +
+    "               data-content=\"{{'spreadsheet.headerRow.tooltip' | translate}}\">\n" +
     "      </tooltip>\n" +
     "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
     "<div class=\"form-group\">\n" +
-    "  <label for=\"refresh\">{{ \"refresh.label\" | translate }}</label>\n" +
+    "  <label for=\"refresh\">{{ \"spreadsheet.refresh.label\" | translate }}</label>\n" +
     "  <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "           data-content=\"{{'refresh.tooltip' | translate}}\">\n" +
+    "           data-content=\"{{'spreadsheet.refresh.tooltip' | translate}}\">\n" +
     "  </tooltip>\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"col-xs-4 col-sm-3\">\n" +

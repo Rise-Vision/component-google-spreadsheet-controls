@@ -1,0 +1,22 @@
+{
+  "spreadsheet": {
+    "cells": {
+      "label": "Cells",
+      "sheet": "Entire Sheet",
+      "range": "Range"
+    },
+    "range": {
+      "label": "Range",
+      "tooltip": "Range of cells in the format A1:B10"
+    },
+    "sheet": "Worksheet",
+    "headerRow": {
+      "label": "Header Row",
+      "tooltip": "Specify if there is a header row or not. If so it will be excluded from the data and assigned as a column label in the data table."
+    },
+    "refresh": {
+      "label": "Data Refresh Interval (seconds)",
+      "tooltip": "How often to check the spreadsheet for new data"
+    }
+  }
+}
