@@ -1,7 +1,9 @@
 {
   "spreadsheet": {
+    "header": "Spreadsheet",
+    "select": "Select Spreadsheet",
     "cells": {
-      "label": "Cells",
+      "label": "Include",
       "sheet": "Entire Sheet",
       "range": "Range"
     },
