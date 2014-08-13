@@ -18,6 +18,9 @@ app.run(["$templateCache", function($templateCache) {
     "    <label>\n" +
     "      {{\"spreadsheet.select\" | translate}} &nbsp; <google-drive-picker view-id=\"spreadsheets\"></google-drive-picker>\n" +
     "    </label>\n" +
+    "		<small class=\"help-block\" ng-show=\"$error.notShared\">\n" +
+    "  		{{'spreadsheet.error.not-shared' | translate}}\n" +
+    "  	</small>\n" +
     "  </div>\n" +
     "  <div class=\"url-options\">\n" +
     "    <div class=\"form-group\">\n" +
@@ -90,11 +93,12 @@ app.run(["$templateCache", function($templateCache) {
       function ($document, $window, $log, $templateCache) {
       return {
         restrict: "E",
+        require: "ngModel",
         scope: {
           spreadsheet: "="
         },
         template: $templateCache.get("spreadsheet-controls.html"),
-        link: function (scope) {
+        link: function (scope, elm, attrs, ctrl) {
           scope.defaultSetting = {
             cells: "sheet",
             range: "",
@@ -116,6 +120,20 @@ app.run(["$templateCache", function($templateCache) {
             }
             return obj;
           };
+
+          // putting the error object on the scope so it can be used in the html
+          scope.$error = ctrl.$error;
+
+          // watch your variable and show an error if it is invalid
+          scope.$watch("spreadsheetUrl", function(spreadsheetUrl) {
+            if (!spreadsheetUrl) {
+              ctrl.$setValidity("required", false);
+            }
+            else if (!spreadsheetUrl.shared) {
+              ctrl.$setValidity("notShared", false);
+            }
+          });
+
 
           scope.$watch("spreadsheet", function(spreadsheet) {
             scope.defaults(spreadsheet, scope.defaultSetting);

@@ -4,6 +4,9 @@
     <label>
       {{"spreadsheet.select" | translate}} &nbsp; <google-drive-picker view-id="spreadsheets"></google-drive-picker>
     </label>
+		<small class="help-block" ng-show="$error.notShared">
+  		{{'spreadsheet.error.not-shared' | translate}}
+  	</small>
   </div>
   <div class="url-options">
     <div class="form-group">
