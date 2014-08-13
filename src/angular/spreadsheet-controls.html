@@ -1,56 +1,64 @@
-<div class="url-options">
+<div class="section">
+  <h5>{{"spreadsheet.heading" | translate}}</h5>
   <div class="form-group">
-    <label>{{ "spreadsheet.cells.label" | translate }}</label>
-    <div class="radio">
-      <label for="cells-sheet">
-        <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet"> {{ "spreadsheet.cells.sheet" | translate }}
-      </label>
+    <label>
+      {{"spreadsheet.select" | translate}} &nbsp; <google-drive-picker view-id="spreadsheets"></google-drive-picker>
+    </label>
+  </div>
+  <div class="url-options">
+    <div class="form-group">
+      <label>{{ "spreadsheet.cells.label" | translate }}</label>
+      <div class="radio">
+        <label for="cells-sheet">
+          <input id="cells-sheet" type="radio" name="cells" ng-model="spreadsheet.cells" value="sheet"> {{ "spreadsheet.cells.sheet" | translate }}
+        </label>
+      </div>
+      <div class="radio">
+        <label for="cells-range">
+          <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range"> {{ "spreadsheet.cells.range" | translate }}
+        </label>
+      </div>
     </div>
-    <div class="radio">
-      <label for="cells-range">
-        <input id="cells-range" type="radio" name="cells" ng-model="spreadsheet.cells" value="range"> {{ "spreadsheet.cells.range" | translate }}
-      </label>
+    <div class="form-group">
+      <label for="range">{{ "spreadsheet.range.label" | translate }}</label>
+      <tooltip data-toggle="popover" data-placement="right"
+               data-content="{{'spreadsheet.range.tooltip' | translate}}">
+      </tooltip>
+      <div class="row">
+        <div class="col-xs-8">
+          <input id="range" name="range" ng-model="spreadsheet.range" ng-disabled="spreadsheet.cells !== 'range'" class="form-control" type="text" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="sheet">{{ "spreadsheet.sheet" | translate }}</label>
+      <div class="row">
+        <div class="col-xs-8">
+          <select id="sheet" name="sheet" ng-model="spreadsheet.sheet" class="form-control"></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="checkbox">
+        <label for="headerRow">
+          <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "spreadsheet.headerRow.label" }}
+        </label>
+        <tooltip data-toggle="popover" data-placement="top"
+                 data-content="{{'spreadsheet.headerRow.tooltip' | translate}}">
+        </tooltip>
+
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <label for="range">{{ "spreadsheet.range.label" | translate }}</label>
-    <tooltip data-toggle="popover" data-placement="right"
-             data-content="{{'spreadsheet.range.tooltip' | translate}}">
+    <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
+    <tooltip data-toggle="popover" data-placement="top"
+             data-content="{{'spreadsheet.refresh.tooltip' | translate}}">
     </tooltip>
     <div class="row">
-      <div class="col-xs-8">
-        <input id="range" name="range" ng-model="spreadsheet.range" ng-disabled="spreadsheet.cells !== 'range'" class="form-control" type="text" />
+      <div class="col-xs-4 col-sm-3">
+        <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
       </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="sheet">{{ "spreadsheet.sheet" | translate }}</label>
-    <div class="row">
-      <div class="col-xs-8">
-        <select id="sheet" name="sheet" ng-model="spreadsheet.sheet" class="form-control"></select>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label for="headerRow">
-        <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "spreadsheet.headerRow.label" }}
-      </label>
-      <tooltip data-toggle="popover" data-placement="top"
-               data-content="{{'spreadsheet.headerRow.tooltip' | translate}}">
-      </tooltip>
-
-    </div>
-  </div>
-</div>
-<div class="form-group">
-  <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
-  <tooltip data-toggle="popover" data-placement="top"
-           data-content="{{'spreadsheet.refresh.tooltip' | translate}}">
-  </tooltip>
-  <div class="row">
-    <div class="col-xs-4 col-sm-3">
-      <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
     </div>
   </div>
 </div>
