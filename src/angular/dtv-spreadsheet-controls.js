@@ -8,11 +8,12 @@
       function ($document, $window, $log, $templateCache) {
       return {
         restrict: "E",
+        require: "ngModel",
         scope: {
           spreadsheet: "="
         },
         template: $templateCache.get("spreadsheet-controls.html"),
-        link: function (scope) {
+        link: function (scope, elm, attrs, ctrl) {
           scope.defaultSetting = {
             cells: "sheet",
             range: "",
@@ -34,6 +35,20 @@
             }
             return obj;
           };
+
+          // putting the error object on the scope so it can be used in the html
+          scope.$error = ctrl.$error;
+
+          // watch your variable and show an error if it is invalid
+          scope.$watch("spreadsheetUrl", function(spreadsheetUrl) {
+            if (!spreadsheetUrl) {
+              ctrl.$setValidity("required", false);
+            }
+            else if (!spreadsheetUrl.shared) {
+              ctrl.$setValidity("notShared", false);
+            }
+          });
+
 
           scope.$watch("spreadsheet", function(spreadsheet) {
             scope.defaults(spreadsheet, scope.defaultSetting);
