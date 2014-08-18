@@ -23,8 +23,8 @@
       expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
         to.eventually.equal("sheet");
 
-      expect(element(by.id("range")).getAttribute("disabled")).
-        to.eventually.not.be.null;
+      expect(element(by.id("range")).isDisplayed()).
+        to.eventually.be.false;
 
       expect(element(by.id("headerRow")).getAttribute("checked")).
         to.eventually.be.null;
@@ -33,15 +33,15 @@
         to.eventually.equal("60");
     });
 
-    it("Should enable range field when range cells is clicked", function () {
+    it("Should show range field when range cells is clicked", function () {
       //click on range cells radio button
       element(by.id("cells-range")).click();
 
       expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
         to.eventually.equal("range");
 
-      expect(element(by.id("range")).getAttribute("disabled")).
-        to.eventually.be.null;
+      expect(element(by.id("range")).isDisplayed()).
+        to.eventually.be.true;
 
     });
 
@@ -52,13 +52,9 @@
       expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
         to.eventually.equal("sheet");
 
-      expect(element(by.id("range")).getAttribute("disabled")).
+      expect(element(by.id("range")).isDisplayed()).
         to.eventually.not.be.null;
 
-    });
-
-    xit("Should correctly save settings", function (done) {
-      //TODO
     });
 
   });

@@ -71,8 +71,8 @@
   gulp.task("angular", ["angular:html2js", "lint"], function () {
     return gulp.src([
       "src/config/config.js",
-      "tmp/ng-templates/*.js",
-      "src/angular/*.js"])
+      "src/angular/*.js",
+      "tmp/ng-templates/*.js"])
 
       .pipe(concat("google-spreadsheet-controls.js"))
       .pipe(gulp.dest("dist/js/angular"));
