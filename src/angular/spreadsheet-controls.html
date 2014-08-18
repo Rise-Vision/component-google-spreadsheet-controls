@@ -4,6 +4,10 @@
     <label>
       {{"spreadsheet.select" | translate}} &nbsp; <google-drive-picker view-id="spreadsheets"></google-drive-picker>
     </label>
+    <small class="help-block" ng-show="$error.notShared">
+      {{"spreadsheet.error.not-shared" | translate}}
+    </small>
+    <div id="spreadsheetUrl" class="well well-sm" ng-show="spreadsheet.url !== ''"></div>
   </div>
   <div class="url-options">
     <div class="form-group">
@@ -19,14 +23,14 @@
         </label>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-hide="spreadsheet.cells !== 'range'">
       <label for="range">{{ "spreadsheet.range.label" | translate }}</label>
       <tooltip data-toggle="popover" data-placement="right"
                data-content="{{'spreadsheet.range.tooltip' | translate}}">
       </tooltip>
       <div class="row">
         <div class="col-xs-8">
-          <input id="range" name="range" ng-model="spreadsheet.range" ng-disabled="spreadsheet.cells !== 'range'" class="form-control" type="text" />
+          <input id="range" name="range" ng-model="spreadsheet.range" class="form-control" type="text" />
         </div>
       </div>
     </div>

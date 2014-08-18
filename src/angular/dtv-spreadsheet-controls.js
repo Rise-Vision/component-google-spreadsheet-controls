@@ -1,8 +1,9 @@
 (function () {
   "use strict";
 
-  angular.module("risevision.widget.common.google-spreadsheet-controls",
-    ["risevision.widget.common.translate", "risevision.widget.common.google-drive-picker",
+  angular.module("risevision.widget.common.google-spreadsheet-controls", [
+    "risevision.widget.common.translate",
+    "risevision.widget.common.google-drive-picker",
     "risevision.widget.common.tooltip"])
     .directive("spreadsheetControls", ["$document", "$window", "$log", "$templateCache",
       function ($document, $window, $log, $templateCache) {
@@ -13,7 +14,10 @@
         },
         template: $templateCache.get("spreadsheet-controls.html"),
         link: function (scope) {
+          var google = $window.google;
+
           scope.defaultSetting = {
+            url: "",
             cells: "sheet",
             range: "",
             sheet: "",
@@ -21,7 +25,7 @@
             refresh: "60"
           };
 
-          scope.defaults = function(obj) {
+          scope.defaults = function (obj) {
             if (obj) {
               for (var i = 1, length = arguments.length; i < length; i++) {
                 var source = arguments[i];
@@ -35,8 +39,20 @@
             return obj;
           };
 
-          scope.$watch("spreadsheet", function(spreadsheet) {
+          scope.$watch("spreadsheet", function (spreadsheet) {
             scope.defaults(spreadsheet, scope.defaultSetting);
+          });
+
+          scope.$on("picked", function (event, data) {
+            $log.debug("Spreadsheet Controls received event 'picked'", data);
+
+            var doc = data[google.picker.Response.DOCUMENTS][0]; // jshint ignore:line
+
+            //TODO: get sheets, best practice will be to use an angular service
+          });
+
+          scope.$on("cancel", function () {
+            $log.debug("Spreadsheet Controls received event 'cancel'");
           });
         }
       };
