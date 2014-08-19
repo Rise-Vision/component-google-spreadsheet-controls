@@ -13,8 +13,8 @@ if (typeof CONFIG === "undefined") {
     "risevision.widget.common.translate",
     "risevision.widget.common.google-drive-picker",
     "risevision.widget.common.tooltip"])
-    .directive("spreadsheetControls", ["$document", "$window", "$log", "$templateCache",
-      function ($document, $window, $log, $templateCache) {
+    .directive("spreadsheetControls", ["$log", "$templateCache", "sheets",
+      function ($log, $templateCache, sheets) {
       return {
         restrict: "E",
         scope: {
@@ -22,7 +22,25 @@ if (typeof CONFIG === "undefined") {
         },
         template: $templateCache.get("spreadsheet-controls.html"),
         link: function (scope) {
-          var google = $window.google;
+
+          function configureURL() {
+            if (scope.currentSheet) {
+              var url = scope.currentSheet.value;
+              // add header rows to URL
+              url += "&headers=" + Number(scope.spreadsheet.headerRow);
+              // add range to URL if applicable
+              if (scope.spreadsheet.cells === "range" && scope.spreadsheet.range !== "") {
+                url += "&range=" + scope.spreadsheet.range;
+              }
+
+              scope.spreadsheet.url = encodeURI(url);
+            }
+          }
+
+          scope.docURL = "";
+          scope.docName = "";
+          scope.sheets = [];
+          scope.currentSheet = null;
 
           scope.defaultSetting = {
             url: "",
@@ -51,12 +69,27 @@ if (typeof CONFIG === "undefined") {
             scope.defaults(spreadsheet, scope.defaultSetting);
           });
 
+          scope.$watch("spreadsheet.range", configureURL);
+          scope.$watch("spreadsheet.headerRow", configureURL);
+
+          scope.$watch("currentSheet", function (sheet) {
+            if (sheet) {
+              scope.spreadsheet.sheet = encodeURI(sheet.value);
+              configureURL();
+            }
+          });
+
           scope.$on("picked", function (event, data) {
-            $log.debug("Spreadsheet Controls received event 'picked'", data);
+            scope.docName = data[0].name;
+            scope.docURL = data[0].url;
 
-            var doc = data[google.picker.Response.DOCUMENTS][0]; // jshint ignore:line
-
-            //TODO: get sheets, best practice will be to use an angular service
+            sheets.getSheets(data[0].id)
+              .then(function(sheets) {
+                scope.sheets = sheets;
+                scope.spreadsheet.sheet = encodeURI(sheets[0].value);
+                scope.currentSheet = sheets[0];
+              })
+              .then(null, $log.error);
           });
 
           scope.$on("cancel", function () {
@@ -83,7 +116,9 @@ app.run(["$templateCache", function($templateCache) {
     "    <small class=\"help-block\" ng-show=\"$error.notShared\">\n" +
     "      {{\"spreadsheet.error.not-shared\" | translate}}\n" +
     "    </small>\n" +
-    "    <div id=\"spreadsheetUrl\" class=\"well well-sm\" ng-show=\"spreadsheet.url !== ''\"></div>\n" +
+    "    <div id=\"spreadsheet\" class=\"well well-sm\" ng-show=\"docURL !== ''\">\n" +
+    "      <a target=\"_blank\" href=\"{{ docURL }}\">{{ docName }}</a>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"url-options\">\n" +
     "    <div class=\"form-group\">\n" +
@@ -114,7 +149,7 @@ app.run(["$templateCache", function($templateCache) {
     "      <label for=\"sheet\">{{ \"spreadsheet.sheet\" | translate }}</label>\n" +
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-8\">\n" +
-    "          <select id=\"sheet\" name=\"sheet\" ng-model=\"spreadsheet.sheet\" class=\"form-control\"></select>\n" +
+    "          <select id=\"sheet\" name=\"sheet\" ng-model=\"currentSheet\" ng-options=\"sheet.label for sheet in sheets\" class=\"form-control\"></select>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
@@ -145,3 +180,64 @@ app.run(["$templateCache", function($templateCache) {
     "");
 }]);
 })();
+
+(function() {
+
+  "use strict";
+
+  angular.module("risevision.widget.common.google-spreadsheet-controls")
+    .constant("SPREADSHEET_API_BASE", "https://spreadsheets.google.com/feeds/worksheets/")
+    .constant("SPREADSHEET_API_SUFFIX", "/public/basic")
+
+    .factory("sheets", ["$http", "$log", "SPREADSHEET_API_BASE", "SPREADSHEET_API_SUFFIX",
+      function ($http, $log, SPREADSHEET_BASE_API, SPREADSHEET_API_SUFFIX) {
+
+        var factory = {},
+          filterSheets = function (data) {
+            var option, href, sheets = [];
+
+            angular.forEach(data.feed.entry, function (value) {
+              option = document.createElement("option");
+              //Sheet name
+              option.text = value.title.$t;
+              /* Visualization API doesn't refresh properly if 'pub' parameter is
+               present, so remove it.
+               */
+              href = value.link[2].href;
+              // Visualization URL
+              href = href.replace("&pub=1", "");
+              /* Use docs.google.com domain when using new Google Sheets due to
+               this bug - http://goo.gl/4Zf8LQ.
+               If /gviz/ is in the URL path, then use this as an indicator that the
+               new Google Sheets is being used.
+               */
+              option.value = (href.indexOf("/gviz/") === -1) ? href :
+                href.replace("spreadsheets.google.com", "docs.google.com");
+
+              sheets.push(option);
+            });
+
+            return sheets;
+          };
+
+        factory.getSheets = function(fileId) {
+          var dummy = Math.ceil(Math.random() * 100),
+            api = SPREADSHEET_BASE_API + fileId + SPREADSHEET_API_SUFFIX;
+
+          return $http.get(encodeURI(api + "?alt=json&dummy=" + dummy))
+            .then(function (response) {
+              return response.data;
+            })
+            .then(function (data) {
+              return filterSheets(data);
+            })
+            .then(null, function(error) {
+              $log.error(error);
+              throw error;
+            });
+        };
+
+        return factory;
+
+    }]);
+}());
