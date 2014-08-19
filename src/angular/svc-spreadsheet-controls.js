@@ -2,7 +2,7 @@
 
   "use strict";
 
-  angular.module("risevision.widget.common.google-spreadsheet-controls", [])
+  angular.module("risevision.widget.common.google-spreadsheet-controls")
     .constant("SPREADSHEET_API_BASE", "https://spreadsheets.google.com/feeds/worksheets/")
     .constant("SPREADSHEET_API_SUFFIX", "/public/basic")
 
@@ -13,14 +13,14 @@
           filterSheets = function (data) {
             var option, href, sheets = [];
 
-            angular.forEach(data.feed.entry, function (i, item) {
+            angular.forEach(data.feed.entry, function (value) {
               option = document.createElement("option");
               //Sheet name
-              option.text = item.title.$t;
+              option.text = value.title.$t;
               /* Visualization API doesn't refresh properly if 'pub' parameter is
                present, so remove it.
                */
-              href = item.link[2].href;
+              href = value.link[2].href;
               // Visualization URL
               href = href.replace("&pub=1", "");
               /* Use docs.google.com domain when using new Google Sheets due to

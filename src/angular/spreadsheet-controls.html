@@ -7,7 +7,9 @@
     <small class="help-block" ng-show="$error.notShared">
       {{"spreadsheet.error.not-shared" | translate}}
     </small>
-    <div id="spreadsheetUrl" class="well well-sm" ng-show="spreadsheet.url !== ''"></div>
+    <div id="spreadsheet" class="well well-sm" ng-show="docURL !== ''">
+      <a target="_blank" href="{{ docURL }}">{{ docName }}</a>
+    </div>
   </div>
   <div class="url-options">
     <div class="form-group">
@@ -38,7 +40,7 @@
       <label for="sheet">{{ "spreadsheet.sheet" | translate }}</label>
       <div class="row">
         <div class="col-xs-8">
-          <select id="sheet" name="sheet" ng-model="spreadsheet.sheet" class="form-control"></select>
+          <select id="sheet" name="sheet" ng-model="currentSheet" ng-options="sheet.label for sheet in sheets" class="form-control"></select>
         </div>
       </div>
     </div>
