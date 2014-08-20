@@ -7,11 +7,15 @@
     <small class="help-block" ng-show="$error.notShared">
       {{"spreadsheet.error.not-shared" | translate}}
     </small>
-    <div id="spreadsheet" class="well well-sm" ng-show="docURL !== ''">
-      <a target="_blank" href="{{ docURL }}">{{ docName }}</a>
+  </div>
+  <div class="row">
+    <div class="col-xs-10">
+      <div id="spreadsheet" class="well well-sm" ng-show="docURL !== ''">
+        <a target="_blank" href="{{ docURL }}">{{ docName }}</a>
+      </div>
     </div>
   </div>
-  <div class="url-options">
+  <div id="spreadsheet-controls" ng-show="spreadsheet.url !== ''">
     <div class="form-group">
       <label>{{ "spreadsheet.cells.label" | translate }}</label>
       <div class="radio">
@@ -31,7 +35,7 @@
                data-content="{{'spreadsheet.range.tooltip' | translate}}">
       </tooltip>
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-10">
           <input id="range" name="range" ng-model="spreadsheet.range" class="form-control" type="text" />
         </div>
       </div>
@@ -39,7 +43,7 @@
     <div class="form-group">
       <label for="sheet">{{ "spreadsheet.sheet" | translate }}</label>
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-10">
           <select id="sheet" name="sheet" ng-model="currentSheet" ng-options="sheet.label for sheet in sheets" class="form-control"></select>
         </div>
       </div>
@@ -52,18 +56,17 @@
         <tooltip data-toggle="popover" data-placement="top"
                  data-content="{{'spreadsheet.headerRow.tooltip' | translate}}">
         </tooltip>
-
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
-    <tooltip data-toggle="popover" data-placement="top"
-             data-content="{{'spreadsheet.refresh.tooltip' | translate}}">
-    </tooltip>
-    <div class="row">
-      <div class="col-xs-4 col-sm-3">
-        <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
+    <div class="form-group">
+      <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
+      <tooltip data-toggle="popover" data-placement="top"
+               data-content="{{'spreadsheet.refresh.tooltip' | translate}}">
+      </tooltip>
+      <div class="row">
+        <div class="col-xs-4 col-sm-3">
+          <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
+        </div>
       </div>
     </div>
   </div>
