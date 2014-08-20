@@ -116,11 +116,15 @@ app.run(["$templateCache", function($templateCache) {
     "    <small class=\"help-block\" ng-show=\"$error.notShared\">\n" +
     "      {{\"spreadsheet.error.not-shared\" | translate}}\n" +
     "    </small>\n" +
-    "    <div id=\"spreadsheet\" class=\"well well-sm\" ng-show=\"docURL !== ''\">\n" +
-    "      <a target=\"_blank\" href=\"{{ docURL }}\">{{ docName }}</a>\n" +
+    "  </div>\n" +
+    "  <div class=\"row\">\n" +
+    "    <div class=\"col-xs-10\">\n" +
+    "      <div id=\"spreadsheet\" class=\"well well-sm\" ng-show=\"docURL !== ''\">\n" +
+    "        <a target=\"_blank\" href=\"{{ docURL }}\">{{ docName }}</a>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "  <div class=\"url-options\">\n" +
+    "  <div id=\"spreadsheet-controls\" ng-show=\"spreadsheet.url !== ''\">\n" +
     "    <div class=\"form-group\">\n" +
     "      <label>{{ \"spreadsheet.cells.label\" | translate }}</label>\n" +
     "      <div class=\"radio\">\n" +
@@ -140,7 +144,7 @@ app.run(["$templateCache", function($templateCache) {
     "               data-content=\"{{'spreadsheet.range.tooltip' | translate}}\">\n" +
     "      </tooltip>\n" +
     "      <div class=\"row\">\n" +
-    "        <div class=\"col-xs-8\">\n" +
+    "        <div class=\"col-xs-10\">\n" +
     "          <input id=\"range\" name=\"range\" ng-model=\"spreadsheet.range\" class=\"form-control\" type=\"text\" />\n" +
     "        </div>\n" +
     "      </div>\n" +
@@ -148,7 +152,7 @@ app.run(["$templateCache", function($templateCache) {
     "    <div class=\"form-group\">\n" +
     "      <label for=\"sheet\">{{ \"spreadsheet.sheet\" | translate }}</label>\n" +
     "      <div class=\"row\">\n" +
-    "        <div class=\"col-xs-8\">\n" +
+    "        <div class=\"col-xs-10\">\n" +
     "          <select id=\"sheet\" name=\"sheet\" ng-model=\"currentSheet\" ng-options=\"sheet.label for sheet in sheets\" class=\"form-control\"></select>\n" +
     "        </div>\n" +
     "      </div>\n" +
@@ -161,18 +165,17 @@ app.run(["$templateCache", function($templateCache) {
     "        <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
     "                 data-content=\"{{'spreadsheet.headerRow.tooltip' | translate}}\">\n" +
     "        </tooltip>\n" +
-    "\n" +
     "      </div>\n" +
     "    </div>\n" +
-    "  </div>\n" +
-    "  <div class=\"form-group\">\n" +
-    "    <label for=\"refresh\">{{ \"spreadsheet.refresh.label\" | translate }}</label>\n" +
-    "    <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "             data-content=\"{{'spreadsheet.refresh.tooltip' | translate}}\">\n" +
-    "    </tooltip>\n" +
-    "    <div class=\"row\">\n" +
-    "      <div class=\"col-xs-4 col-sm-3\">\n" +
-    "        <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"refresh\">{{ \"spreadsheet.refresh.label\" | translate }}</label>\n" +
+    "      <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
+    "               data-content=\"{{'spreadsheet.refresh.tooltip' | translate}}\">\n" +
+    "      </tooltip>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"col-xs-4 col-sm-3\">\n" +
+    "          <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
+    "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
