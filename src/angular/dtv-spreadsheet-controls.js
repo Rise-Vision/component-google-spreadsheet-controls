@@ -16,6 +16,20 @@
         template: $templateCache.get("spreadsheet-controls.html"),
         link: function (scope, elm, attrs, ctrl) {
 
+          var defaultDocSettings = {
+              docName: "",
+              docURL: ""
+            },
+            defaultSpreadsheetSettings = {
+              fileId: "",
+              url: "",
+              cells: "sheet",
+              range: "",
+              sheet: "",
+              headerRow: false,
+              refresh: "60"
+            };
+
           function configureURL() {
             if (scope.currentSheet) {
               var url = scope.currentSheet.value;
@@ -31,25 +45,32 @@
           }
 
           function reset() {
-            scope.spreadsheet = angular.copy(scope.defaultSetting);
+            scope.spreadsheet = angular.copy(defaultSpreadsheetSettings);
+
+            // Not resetting spreadsheet Doc values as these are necessary to persist
+
             scope.sheets = [];
             scope.currentSheet = null;
           }
 
-          scope.docURL = "";
-          scope.docName = "";
+          function getSheets(fileId) {
+            sheets.getSheets(fileId)
+              .then(function (sheets) {
+                scope.published = true;
+                scope.sheets = sheets;
+                scope.spreadsheet.sheet = encodeURI(sheets[0].value);
+                scope.currentSheet = sheets[0];
+              })
+              .then(null, function (error) {
+                $log.error(error);
+                scope.published = false;
+                reset();
+              });
+          }
+
           scope.sheets = [];
           scope.currentSheet = null;
           scope.published = true;
-
-          scope.defaultSetting = {
-            url: "",
-            cells: "sheet",
-            range: "",
-            sheet: "",
-            headerRow: false,
-            refresh: "60"
-          };
 
           scope.defaults = function (obj) {
             if (obj) {
@@ -74,7 +95,14 @@
           }
 
           scope.$watch("spreadsheet", function (spreadsheet) {
-            scope.defaults(spreadsheet, scope.defaultSetting);
+            scope.defaults(spreadsheet, defaultSpreadsheetSettings);
+            scope.defaults(spreadsheet, defaultDocSettings);
+          });
+
+          scope.$watch("spreadsheet.fileId", function (fileId) {
+            if (fileId && fileId !== "") {
+              getSheets(fileId);
+            }
           });
 
           scope.$watch("spreadsheet.range", configureURL);
@@ -88,21 +116,11 @@
           });
 
           scope.$on("picked", function (event, data) {
-            scope.docName = data[0].name;
-            scope.docURL = data[0].url;
-
-            sheets.getSheets(data[0].id)
-              .then(function (sheets) {
-                scope.published = true;
-                scope.sheets = sheets;
-                scope.spreadsheet.sheet = encodeURI(sheets[0].value);
-                scope.currentSheet = sheets[0];
-              })
-              .then(null, function (error) {
-                $log.error(error);
-                scope.published = false;
-                reset();
-              });
+            scope.$apply(function () {
+              scope.spreadsheet.docName = data[0].name;
+              scope.spreadsheet.docURL = encodeURI(data[0].url);
+              scope.spreadsheet.fileId = data[0].id;
+            });
           });
         }
       };
