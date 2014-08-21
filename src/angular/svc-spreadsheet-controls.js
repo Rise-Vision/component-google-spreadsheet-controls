@@ -47,10 +47,6 @@
             })
             .then(function (data) {
               return filterSheets(data);
-            })
-            .then(null, function(error) {
-              $log.error(error);
-              throw error;
             });
         };
 

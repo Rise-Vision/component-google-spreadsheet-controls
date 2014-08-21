@@ -9,11 +9,12 @@
       function ($log, $templateCache, sheets) {
       return {
         restrict: "E",
+        require: "?ngModel",
         scope: {
           spreadsheet: "="
         },
         template: $templateCache.get("spreadsheet-controls.html"),
-        link: function (scope) {
+        link: function (scope, elm, attrs, ctrl) {
 
           function configureURL() {
             if (scope.currentSheet) {
@@ -29,10 +30,17 @@
             }
           }
 
+          function reset() {
+            scope.spreadsheet = angular.copy(scope.defaultSetting);
+            scope.sheets = [];
+            scope.currentSheet = null;
+          }
+
           scope.docURL = "";
           scope.docName = "";
           scope.sheets = [];
           scope.currentSheet = null;
+          scope.published = true;
 
           scope.defaultSetting = {
             url: "",
@@ -57,6 +65,14 @@
             return obj;
           };
 
+          if (ctrl) {
+            scope.$watch("spreadsheet.url", function (url) {
+              if (!url || url === "") {
+                ctrl.$setValidity("required", false);
+              }
+            });
+          }
+
           scope.$watch("spreadsheet", function (spreadsheet) {
             scope.defaults(spreadsheet, scope.defaultSetting);
           });
@@ -76,16 +92,17 @@
             scope.docURL = data[0].url;
 
             sheets.getSheets(data[0].id)
-              .then(function(sheets) {
+              .then(function (sheets) {
+                scope.published = true;
                 scope.sheets = sheets;
                 scope.spreadsheet.sheet = encodeURI(sheets[0].value);
                 scope.currentSheet = sheets[0];
               })
-              .then(null, $log.error);
-          });
-
-          scope.$on("cancel", function () {
-            $log.debug("Spreadsheet Controls received event 'cancel'");
+              .then(null, function (error) {
+                $log.error(error);
+                scope.published = false;
+                reset();
+              });
           });
         }
       };
