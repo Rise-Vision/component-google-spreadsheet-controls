@@ -4,9 +4,9 @@
     <label>
       {{"spreadsheet.select" | translate}} &nbsp; <google-drive-picker view-id="spreadsheets"></google-drive-picker>
     </label>
-    <small class="help-block" ng-show="$error.notShared">
-      {{"spreadsheet.error.not-shared" | translate}}
-    </small>
+    <div ng-if="!published">
+      <span class="text-danger">{{ "spreadsheet.error.publish" | translate }}</span>
+    </div>
   </div>
   <div class="row">
     <div class="col-xs-10">

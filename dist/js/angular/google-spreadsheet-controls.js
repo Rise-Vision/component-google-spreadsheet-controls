@@ -17,11 +17,12 @@ if (typeof CONFIG === "undefined") {
       function ($log, $templateCache, sheets) {
       return {
         restrict: "E",
+        require: "?ngModel",
         scope: {
           spreadsheet: "="
         },
         template: $templateCache.get("spreadsheet-controls.html"),
-        link: function (scope) {
+        link: function (scope, elm, attrs, ctrl) {
 
           function configureURL() {
             if (scope.currentSheet) {
@@ -37,10 +38,17 @@ if (typeof CONFIG === "undefined") {
             }
           }
 
+          function reset() {
+            scope.spreadsheet = angular.copy(scope.defaultSetting);
+            scope.sheets = [];
+            scope.currentSheet = null;
+          }
+
           scope.docURL = "";
           scope.docName = "";
           scope.sheets = [];
           scope.currentSheet = null;
+          scope.published = true;
 
           scope.defaultSetting = {
             url: "",
@@ -65,6 +73,14 @@ if (typeof CONFIG === "undefined") {
             return obj;
           };
 
+          if (ctrl) {
+            scope.$watch("spreadsheet.url", function (url) {
+              if (!url || url === "") {
+                ctrl.$setValidity("required", false);
+              }
+            });
+          }
+
           scope.$watch("spreadsheet", function (spreadsheet) {
             scope.defaults(spreadsheet, scope.defaultSetting);
           });
@@ -84,16 +100,17 @@ if (typeof CONFIG === "undefined") {
             scope.docURL = data[0].url;
 
             sheets.getSheets(data[0].id)
-              .then(function(sheets) {
+              .then(function (sheets) {
+                scope.published = true;
                 scope.sheets = sheets;
                 scope.spreadsheet.sheet = encodeURI(sheets[0].value);
                 scope.currentSheet = sheets[0];
               })
-              .then(null, $log.error);
-          });
-
-          scope.$on("cancel", function () {
-            $log.debug("Spreadsheet Controls received event 'cancel'");
+              .then(null, function (error) {
+                $log.error(error);
+                scope.published = false;
+                reset();
+              });
           });
         }
       };
@@ -113,9 +130,9 @@ app.run(["$templateCache", function($templateCache) {
     "    <label>\n" +
     "      {{\"spreadsheet.select\" | translate}} &nbsp; <google-drive-picker view-id=\"spreadsheets\"></google-drive-picker>\n" +
     "    </label>\n" +
-    "    <small class=\"help-block\" ng-show=\"$error.notShared\">\n" +
-    "      {{\"spreadsheet.error.not-shared\" | translate}}\n" +
-    "    </small>\n" +
+    "    <div ng-if=\"!published\">\n" +
+    "      <span class=\"text-danger\">{{ \"spreadsheet.error.publish\" | translate }}</span>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"col-xs-10\">\n" +
@@ -233,10 +250,6 @@ app.run(["$templateCache", function($templateCache) {
             })
             .then(function (data) {
               return filterSheets(data);
-            })
-            .then(null, function(error) {
-              $log.error(error);
-              throw error;
             });
         };
 
