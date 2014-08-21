@@ -11,8 +11,7 @@ if (typeof CONFIG === "undefined") {
 
   angular.module("risevision.widget.common.google-spreadsheet-controls", [
     "risevision.widget.common.translate",
-    "risevision.widget.common.google-drive-picker",
-    "risevision.widget.common.tooltip"])
+    "risevision.widget.common.google-drive-picker"])
     .directive("spreadsheetControls", ["$log", "$templateCache", "sheets",
       function ($log, $templateCache, sheets) {
       return {
@@ -175,9 +174,6 @@ app.run(["$templateCache", function($templateCache) {
     "    </div>\n" +
     "    <div class=\"form-group\" ng-hide=\"spreadsheet.cells !== 'range'\">\n" +
     "      <label for=\"range\">{{ \"spreadsheet.range.label\" | translate }}</label>\n" +
-    "      <tooltip data-toggle=\"popover\" data-placement=\"right\"\n" +
-    "               data-content=\"{{'spreadsheet.range.tooltip' | translate}}\">\n" +
-    "      </tooltip>\n" +
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-10\">\n" +
     "          <input id=\"range\" name=\"range\" ng-model=\"spreadsheet.range\" class=\"form-control\" type=\"text\" />\n" +
@@ -197,16 +193,10 @@ app.run(["$templateCache", function($templateCache) {
     "        <label for=\"headerRow\">\n" +
     "          <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"spreadsheet.headerRow.label\" }}\n" +
     "        </label>\n" +
-    "        <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "                 data-content=\"{{'spreadsheet.headerRow.tooltip' | translate}}\">\n" +
-    "        </tooltip>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
     "      <label for=\"refresh\">{{ \"spreadsheet.refresh.label\" | translate }}</label>\n" +
-    "      <tooltip data-toggle=\"popover\" data-placement=\"top\"\n" +
-    "               data-content=\"{{'spreadsheet.refresh.tooltip' | translate}}\">\n" +
-    "      </tooltip>\n" +
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-4 col-sm-3\">\n" +
     "          <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
