@@ -3,8 +3,7 @@
 
   angular.module("risevision.widget.common.google-spreadsheet-controls", [
     "risevision.widget.common.translate",
-    "risevision.widget.common.google-drive-picker",
-    "risevision.widget.common.tooltip"])
+    "risevision.widget.common.google-drive-picker"])
     .directive("spreadsheetControls", ["$log", "$templateCache", "sheets",
       function ($log, $templateCache, sheets) {
       return {
