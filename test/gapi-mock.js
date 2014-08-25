@@ -1,9 +1,12 @@
-(function (window){
+(function (window, handleClientJSLoad){
   "use strict";
+
+  /* global handleClientJSLoad:false */
+
   window.gapi = {
-    load: function (name, options) {
-      if (options.callback) {
-        options.callback();
+    load: function (name, callback) {
+      if (callback) {
+        callback();
       }
     },
     auth: {
@@ -298,16 +301,7 @@
       }
     }
   };
-  window.pickFiles = function (files) {
-    var req = {};
-    req[window.google.picker.Response.ACTION] = window.google.picker.Action.PICKED;
-    req[window.google.picker.Response.DOCUMENTS] = files;
-    window._pickerCallbackFn.call(null, req);
-  };
-  window.dialogCancel = function () {
-    var req = {};
-    req[window.google.picker.Response.ACTION] = window.google.picker.Action.CANCEL;
-    window._pickerCallbackFn.call(null, req);
-  };
 
-})(window);
+  handleClientJSLoad();
+
+})(window, handleClientJSLoad);
