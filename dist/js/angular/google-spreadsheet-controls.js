@@ -52,7 +52,7 @@ if (typeof CONFIG === "undefined") {
           }
 
           function reset() {
-            scope.spreadsheet = angular.copy(defaultSpreadsheetSettings);
+            angular.extend(scope.spreadsheet, defaultSpreadsheetSettings);
 
             // Not resetting spreadsheet Doc values as these are necessary to persist
 
@@ -68,8 +68,7 @@ if (typeof CONFIG === "undefined") {
                 scope.spreadsheet.sheet = encodeURI(sheets[0].value);
                 scope.currentSheet = sheets[0];
               })
-              .then(null, function (error) {
-                $log.error(error);
+              .then(null, function () {
                 scope.published = false;
                 reset();
               });
@@ -123,11 +122,9 @@ if (typeof CONFIG === "undefined") {
           });
 
           scope.$on("picked", function (event, data) {
-            scope.$apply(function () {
-              scope.spreadsheet.docName = data[0].name;
-              scope.spreadsheet.docURL = encodeURI(data[0].url);
-              scope.spreadsheet.fileId = data[0].id;
-            });
+            scope.spreadsheet.docName = data[0].name;
+            scope.spreadsheet.docURL = encodeURI(data[0].url);
+            scope.spreadsheet.fileId = data[0].id;
           });
         }
       };
