@@ -30,7 +30,11 @@
       </div>
     </div>
     <div class="form-group" ng-hide="spreadsheet.cells !== 'range'">
-      <label for="range">{{ "spreadsheet.range.label" | translate }}</label>
+      <label for="range">
+        {{ "spreadsheet.range.label" | translate }}
+      </label>
+      <span popover="{{'spreadsheet.range.tooltip' | translate}}" popover-trigger="click"
+            popover-placement="top" rv-tooltip></span>
       <div class="row">
         <div class="col-xs-10">
           <input id="range" name="range" ng-model="spreadsheet.range" class="form-control" type="text" />
@@ -50,10 +54,14 @@
         <label for="headerRow">
           <input id="headerRow" name="headerRow" ng-model="spreadsheet.headerRow" type="checkbox"> {{ "spreadsheet.headerRow.label" }}
         </label>
+        <span popover="{{'spreadsheet.headerRow.tooltip' | translate}}" popover-trigger="click"
+              popover-placement="top" rv-tooltip></span>
       </div>
     </div>
     <div class="form-group">
       <label for="refresh">{{ "spreadsheet.refresh.label" | translate }}</label>
+      <span popover="{{'spreadsheet.refresh.tooltip' | translate}}" popover-trigger="click"
+            popover-placement="top" rv-tooltip></span>
       <div class="row">
         <div class="col-xs-4 col-sm-3">
           <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
