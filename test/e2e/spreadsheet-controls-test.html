@@ -37,15 +37,12 @@
   <script type="text/javascript" src="/tmp/ng-templates/spreadsheet-controls.js"></script>
   <script type="text/javascript" src="/src/angular/svc-spreadsheet-controls.js"></script>-->
   <!--<script type="text/javascript" src="//apis.google.com/js/client.js?onload=handleClientJSLoad"></script>-->
+  <script type="text/javascript" src="/test/e2e/spreadsheet-controls-http-mock.js"></script>
   <script type="text/javascript" src="../gapi-mock.js"></script>
-
   <script>
-    angular.module("testapp", ["risevision.widget.common.google-spreadsheet-controls", "ngMockE2E"])
-
+    angular.module("testapp", ["risevision.widget.common.google-spreadsheet-controls", "http-mock"])
       .controller("mainController", ["$scope", "$window",
-
         function ($scope, $window) {
-
           var docPublished = {
             id: "published",
             name: "Rise Training Spreadsheet Example",
@@ -63,11 +60,6 @@
             }
           };
 
-          $scope.getAdditionalParams = function (val, defaultVal) {
-            //always return defaultVal for now
-            return defaultVal;
-          };
-
           //methods that simuates file actions _after_ dialog is opened
           $scope.simulatePick = function (published) {
             if (published) {
@@ -76,10 +68,7 @@
               $window.pickFile([docNonPublished]);
             }
           };
-
         }]);
   </script>
-  <script type="text/javascript" src="/test/e2e/spreadsheet-controls-http-mock.js"></script>
-
 </body>
 </html>
