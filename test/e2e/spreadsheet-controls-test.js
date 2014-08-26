@@ -23,6 +23,9 @@
       expect(element(by.id("spreadsheet")).isDisplayed()).
         to.eventually.be.false;
 
+      expect(element(by.css(".text-danger")).isPresent()).
+        to.eventually.be.false;
+
       expect(element(by.id("spreadsheet-controls")).isDisplayed()).
         to.eventually.be.false;
 
@@ -39,30 +42,83 @@
         to.eventually.equal("60");
     });
 
-    //TODO: Mock spreadsheet selection from using Google Drive Picker and selecting the file from Google Drive
+    it("Should correctly show and populate controls by selecting a published file", function () {
+      // open dialog
+      element(by.css(".btn-google-drive")).click();
+      // simulate picks
+      element(by.id("published-pick")).click();
+      // spreadsheet controls should show
+      expect(element(by.id("spreadsheet-controls")).isDisplayed()).
+        to.eventually.not.be.null;
+      // spreadsheet document hyperlink should show
+      expect(element(by.id("spreadsheet")).isDisplayed()).
+        to.eventually.be.true;
+      // spreadsheet hyperlink href value should be the published one
+      expect(element(by.css("#spreadsheet a")).getAttribute("href")).
+        to.eventually.equal("https://test=published");
+      // no error message should be present
+      expect(element(by.css(".text-danger")).isPresent()).
+        to.eventually.be.false;
 
-    xit("Should show range field when range cells is clicked", function () {
-      //click on range cells radio button
+      /*expect(element.all(by.css("#sheet option")).count()).to.
+        eventually.equal(4);*/
+      element.all(by.css("#sheet option")).then(function (elements) {
+        // sheets select element should display 4 options
+        expect(elements.length).to.equal(4);
+        // 1st option should be selected
+        expect(elements[0].getAttribute("selected")).to.eventually.not.be.null;
+      });
+    });
+
+    it("Should show range field when range cells is clicked", function () {
+      // open dialog
+      element(by.css(".btn-google-drive")).click();
+      // simulate pick
+      element(by.id("published-pick")).click();
+      // click on range cells radio button
       element(by.id("cells-range")).click();
 
       expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
         to.eventually.equal("range");
-
+      // range field should be visible
       expect(element(by.id("range")).isDisplayed()).
         to.eventually.be.true;
 
     });
 
-    xit("Should disable range field when sheet cells is clicked", function () {
-      //click on sheet cells radio button
+    it("Should hide range field when sheet cells is clicked", function () {
+      // open dialog
+      element(by.css(".btn-google-drive")).click();
+      // simulate pick
+      element(by.id("published-pick")).click();
+      // click on sheet cells radio button
       element(by.id("cells-sheet")).click();
 
       expect(element(by.css("input[name=cells]:checked")).getAttribute("value")).
         to.eventually.equal("sheet");
-
+      // range field should not be visible
       expect(element(by.id("range")).isDisplayed()).
         to.eventually.not.be.null;
 
+    });
+
+    it("Should not show or populate controls when selecting a non-published file", function () {
+      // open dialog
+      element(by.css(".btn-google-drive")).click();
+      // simulate picks
+      element(by.id("non-published-pick")).click();
+      // spreadsheet controls should show
+      expect(element(by.id("spreadsheet-controls")).isDisplayed()).
+        to.eventually.be.false;
+      // spreadsheet document hyperlink should show
+      expect(element(by.id("spreadsheet")).isDisplayed()).
+        to.eventually.be.true;
+      // spreadsheet hyperlink href value should be the non-published one
+      expect(element(by.css("#spreadsheet a")).getAttribute("href")).
+        to.eventually.equal("https://test=not-published");
+      // error message should be present
+      expect(element(by.css(".text-danger")).isPresent()).
+        to.eventually.not.be.null;
     });
 
   });
