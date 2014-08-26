@@ -16,6 +16,8 @@
         <div class="wrapper container-fluid modal-content">
           <h2 class="text-center">Google Spreadsheet Controls - e2e Testing</h2>
           <hr>
+          <button id="published-pick" class="btn btn-default" ng-click="simulatePick(true)">Simulate Published Pick</button>
+          <button id="non-published-pick" class="btn btn-default" ng-click="simulatePick(false)">Simulate Non-Published Pick</button>
           <form style="margin-top: 10px">
             <spreadsheet-controls spreadsheet="settings.additionalParams.spreadsheet"></spreadsheet-controls>
           </form>
@@ -25,6 +27,7 @@
   </div>
 
   <script type="text/javascript" src="/components/angular/angular.js"></script>
+  <script type="text/javascript" src="/components/angular-mocks/angular-mocks.js"></script>
   <script type="text/javascript" src="/components/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="/node_modules/widget-tester/mocks/common-mock.js"></script>
   <script type="text/javascript" src="/components/google-drive-picker/dist/js/angular/google-drive-picker.js"></script>
@@ -37,8 +40,23 @@
   <script type="text/javascript" src="../gapi-mock.js"></script>
 
   <script>
-    angular.module('testapp', ['risevision.widget.common.google-spreadsheet-controls'])
-      .controller("mainController", ["$scope", "$window", function ($scope, $window) {
+    angular.module("testapp", ["risevision.widget.common.google-spreadsheet-controls", "ngMockE2E"])
+
+      .controller("mainController", ["$scope", "$window",
+
+        function ($scope, $window) {
+
+          var docPublished = {
+            id: "published",
+            name: "Rise Training Spreadsheet Example",
+            url: "https://test=published"
+            },
+            docNonPublished = {
+              id: "not-published",
+              name: "T-Shirt Order",
+              url: "https://test=not-published"
+            };
+
           $scope.settings = {
             additionalParams: {
               spreadsheet: {}
@@ -48,10 +66,20 @@
           $scope.getAdditionalParams = function (val, defaultVal) {
             //always return defaultVal for now
             return defaultVal;
-          }
+          };
+
+          //methods that simuates file actions _after_ dialog is opened
+          $scope.simulatePick = function (published) {
+            if (published) {
+              $window.pickFile([docPublished]);
+            } else {
+              $window.pickFile([docNonPublished]);
+            }
+          };
 
         }]);
   </script>
+  <script type="text/javascript" src="/test/e2e/spreadsheet-controls-http-mock.js"></script>
 
 </body>
 </html>

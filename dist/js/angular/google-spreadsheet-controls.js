@@ -246,7 +246,8 @@ app.run(["$templateCache", function($templateCache) {
           };
 
         factory.getSheets = function(fileId) {
-          var dummy = Math.ceil(Math.random() * 100),
+          var date = new Date(),
+            dummy = date.toLocaleDateString().split("/").join("") + date.getHours().toString(),
             api = SPREADSHEET_BASE_API + fileId + SPREADSHEET_API_SUFFIX;
 
           return $http.get(encodeURI(api + "?alt=json&dummy=" + dummy))
