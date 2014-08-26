@@ -302,6 +302,13 @@
     }
   };
 
+  window.pickFile = function (file) {
+    var req = {};
+    req[window.google.picker.Response.ACTION] = window.google.picker.Action.PICKED;
+    req[window.google.picker.Response.DOCUMENTS] = file;
+    window._pickerCallbackFn.call(null, req);
+  };
+
   handleClientJSLoad();
 
 })(window, handleClientJSLoad);
