@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  angular.module("testapp")
+  angular.module("http-mock", ["ngMockE2E"])
 
     // define our fake backend
     .run(["$httpBackend", "$log", "SPREADSHEET_API_BASE", "SPREADSHEET_API_SUFFIX",
