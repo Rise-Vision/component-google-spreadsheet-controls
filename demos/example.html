@@ -3,15 +3,20 @@
     <h1 class="page">Spreadsheet Controls</h1>
   </div>
 
-  <p class="lead">An Angular directive that allows configuration of a chosen Google Spreadsheet</p>
+  <p class="lead">An Angular directive used to configure a chosen Google Spreadsheet</p>
 
-  <p><strong>Dependencies</strong> <span class="label label-info">tooltip</span></p>
+  <p><strong>Dependencies</strong> <span class="label label-info">Google Drive Picker</span> <span class="label label-info">Tooltip</span> <span class="label label-info">UI Bootstrap</span> </p>
 
   <h3 class="add-top">Usage</h3>
+  <p>Clicking the Google Drive Picker button will launch the Google Picker modal to which you can then select a spreadsheet.</p>
+  <p>Upon selecting the spreadsheet, provided it is public and been published, you can then edit several configurations including which worksheet to display. If the spreadsheet is not public or published, the directive displays an error message and a hyperlink to open the document (see Google's <a href="https://developers.google.com/google-apps/spreadsheets/#spreadsheets_api_urls_visibilities_and_projections" target="_blank">documentation</a> on public and published spreadsheets).</p>
+  <p>The directive requires the use of the <code>spreadsheet</code> attribute which defines an object and instantiates/saves the following properties: docURL, docName, fileId, url, cells, range, sheet, headerRow, refresh.
+  </p>
+  <p>Optionally add ng-model variable for validation.</p>
   <hljs include="'spreadsheet-controls-usage'"></hljs>
 
   <h3>Script Includes</h3>
-  <p>Make sure you include the following files in <code>index.html</code></p>
+  <p>Make sure you include the following files in <code>index.html</code> in this exact order.</p>
   <hljs include="'script-includes'"></hljs>
 
   <!-- Dynamic Example -->
@@ -22,8 +27,10 @@
 </div>
 
 <script type="text/ng-template" id="script-includes">
-  components/component-google-spreadsheet-controls/dist/js/angular/google-spreadsheet-controls.js
+  components/angular-bootstrap/ui-bootstrap-tpls.js
   components/widget-settings-ui-components/dist/js/angular/tooltip.js
+  components/google-drive-picker/dist/js/angular/google-drive-picker.js
+  components/component-google-spreadsheet-controls/dist/js/angular/google-spreadsheet-controls.js
 </script>
 
 <!-- Code Snippet -->
