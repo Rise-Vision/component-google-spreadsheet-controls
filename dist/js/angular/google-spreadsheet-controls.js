@@ -193,7 +193,7 @@ app.run(["$templateCache", function($templateCache) {
     "    <div class=\"form-group\">\n" +
     "      <div class=\"checkbox\">\n" +
     "        <label for=\"headerRow\">\n" +
-    "          <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"spreadsheet.headerRow.label\" }}\n" +
+    "          <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"spreadsheet.headerRow.label\" | translate }}\n" +
     "        </label>\n" +
     "        <span popover=\"{{'spreadsheet.headerRow.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
     "              popover-placement=\"top\" rv-tooltip></span>\n" +
