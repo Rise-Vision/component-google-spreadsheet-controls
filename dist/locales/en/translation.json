@@ -23,5 +23,10 @@
     "error": {
       "publish": "To use this spreadsheet, it first needs to be published to the web. Open your file from the link provided below. From the Google Spreadsheet menu, select File > Publish to the web, and then click the Start Publishing button. Once done, select your file from the Google Drive button again."
     }
+  },
+  "common": {
+    "units": {
+      "seconds": "sec"
+    }
   }
 }

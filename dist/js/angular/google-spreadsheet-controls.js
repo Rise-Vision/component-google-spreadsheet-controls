@@ -177,18 +177,14 @@ app.run(["$templateCache", function($templateCache) {
     "      <span popover=\"{{'spreadsheet.range.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
     "            popover-placement=\"top\" rv-tooltip></span>\n" +
     "      <div class=\"row\">\n" +
-    "        <div class=\"col-xs-10\">\n" +
+    "        <div class=\"col-md-6\">\n" +
     "          <input id=\"range\" name=\"range\" ng-model=\"spreadsheet.range\" class=\"form-control\" type=\"text\" />\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
     "      <label for=\"sheet\">{{ \"spreadsheet.sheet\" | translate }}</label>\n" +
-    "      <div class=\"row\">\n" +
-    "        <div class=\"col-xs-10\">\n" +
-    "          <select id=\"sheet\" name=\"sheet\" ng-model=\"currentSheet\" ng-options=\"sheet.label for sheet in sheets\" class=\"form-control\"></select>\n" +
-    "        </div>\n" +
-    "      </div>\n" +
+    "      <select id=\"sheet\" name=\"sheet\" ng-model=\"currentSheet\" ng-options=\"sheet.label for sheet in sheets\" class=\"form-control\"></select>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
     "      <div class=\"checkbox\">\n" +
@@ -204,8 +200,11 @@ app.run(["$templateCache", function($templateCache) {
     "      <span popover=\"{{'spreadsheet.refresh.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
     "            popover-placement=\"top\" rv-tooltip></span>\n" +
     "      <div class=\"row\">\n" +
-    "        <div class=\"col-xs-4 col-sm-3\">\n" +
-    "          <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
+    "        <div class=\"col-xs-6 col-md-3\">\n" +
+    "          <div class=\"input-group\">\n" +
+    "            <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
+    "            <span class=\"input-group-addon\">{{'common.units.seconds' | translate}}</span>\n" +
+    "          </div>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
