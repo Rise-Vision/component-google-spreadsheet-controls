@@ -185,7 +185,7 @@ app.run(["$templateCache", function($templateCache) {
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-6 col-md-3\">\n" +
     "          <select id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" class=\"form-control\">\n" +
-    "            <option value=\"-1\">{{'headerRow.auto' | translate}}</option>\n" +
+    "            <option value=\"-1\">{{'spreadsheet.headerRow.auto' | translate}}</option>\n" +
     "            <option value=\"0\">0</option>\n" +
     "            <option value=\"1\">1</option>\n" +
     "            <option value=\"2\">2</option>\n" +
