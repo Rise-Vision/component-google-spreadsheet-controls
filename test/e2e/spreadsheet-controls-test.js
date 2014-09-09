@@ -35,8 +35,12 @@
       expect(element(by.id("range")).isDisplayed()).
         to.eventually.be.false;
 
-      expect(element(by.id("headerRow")).getAttribute("checked")).
-        to.eventually.be.null;
+      element.all(by.css("#headerRow option")).then(function (elements) {
+        // headerRow select element should display 12 options
+        expect(elements.length).to.equal(12);
+        // 1st option should be selected
+        expect(elements[0].getAttribute("selected")).to.eventually.not.be.null;
+      });
 
       expect(element(by.id("refresh")).getAttribute("value")).
         to.eventually.equal("60");
@@ -55,13 +59,11 @@
         to.eventually.be.true;
       // spreadsheet hyperlink href value should be the published one
       expect(element(by.css("#spreadsheet a")).getAttribute("href")).
-        to.eventually.equal("https://test=published");
+        to.eventually.equal("https://test-published/");
       // no error message should be present
       expect(element(by.css(".text-danger")).isPresent()).
         to.eventually.be.false;
 
-      /*expect(element.all(by.css("#sheet option")).count()).to.
-        eventually.equal(4);*/
       element.all(by.css("#sheet option")).then(function (elements) {
         // sheets select element should display 4 options
         expect(elements.length).to.equal(4);
@@ -115,7 +117,7 @@
         to.eventually.be.true;
       // spreadsheet hyperlink href value should be the non-published one
       expect(element(by.css("#spreadsheet a")).getAttribute("href")).
-        to.eventually.equal("https://test=not-published");
+        to.eventually.equal("https://test-not-published/");
       // error message should be present
       expect(element(by.css(".text-danger")).isPresent()).
         to.eventually.not.be.null;

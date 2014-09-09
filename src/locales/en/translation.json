@@ -14,7 +14,8 @@
     "sheet": "Worksheet",
     "headerRow": {
       "label": "Header Row",
-      "tooltip": "Specify if there is a header row or not. If so it will be excluded from the data and assigned as a column label in the data table."
+      "tooltip": "Specify how many rows are header rows. These will be excluded from the data and assigned as column labels in the data table. If set to Auto, the spreadsheet will guess how many rows are header rows. Note that if all your columns are string data, the spreadsheet might have difficulty determining which rows are header rows without this parameter set to something other than Auto.",
+      "auto": "Auto"
     },
     "refresh": {
       "label": "Data Refresh Interval (seconds)",
