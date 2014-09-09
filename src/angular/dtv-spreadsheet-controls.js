@@ -25,8 +25,7 @@
               url: "",
               cells: "sheet",
               range: "",
-              sheet: "",
-              headerRow: false,
+              headerRow: "-1",
               refresh: "60"
             };
 
@@ -34,7 +33,7 @@
             if (scope.currentSheet) {
               var url = scope.currentSheet.value;
               // add header rows to URL
-              url += "&headers=" + Number(scope.spreadsheet.headerRow);
+              url += "&headers=" + scope.spreadsheet.headerRow;
               // add range to URL if applicable
               if (scope.spreadsheet.cells === "range" && scope.spreadsheet.range !== "") {
                 url += "&range=" + scope.spreadsheet.range;
@@ -58,7 +57,6 @@
               .then(function (sheets) {
                 scope.published = true;
                 scope.sheets = sheets;
-                scope.spreadsheet.sheet = encodeURI(sheets[0].value);
                 scope.currentSheet = sheets[0];
               })
               .then(null, function () {
@@ -106,13 +104,7 @@
 
           scope.$watch("spreadsheet.range", configureURL);
           scope.$watch("spreadsheet.headerRow", configureURL);
-
-          scope.$watch("currentSheet", function (sheet) {
-            if (sheet) {
-              scope.spreadsheet.sheet = encodeURI(sheet.value);
-              configureURL();
-            }
-          });
+          scope.$watch("currentSheet", configureURL);
 
           scope.$on("picked", function (event, data) {
             scope.spreadsheet.docName = data[0].name;

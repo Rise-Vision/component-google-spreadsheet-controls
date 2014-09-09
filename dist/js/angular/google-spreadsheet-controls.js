@@ -33,8 +33,7 @@ if (typeof CONFIG === "undefined") {
               url: "",
               cells: "sheet",
               range: "",
-              sheet: "",
-              headerRow: false,
+              headerRow: "-1",
               refresh: "60"
             };
 
@@ -42,7 +41,7 @@ if (typeof CONFIG === "undefined") {
             if (scope.currentSheet) {
               var url = scope.currentSheet.value;
               // add header rows to URL
-              url += "&headers=" + Number(scope.spreadsheet.headerRow);
+              url += "&headers=" + scope.spreadsheet.headerRow;
               // add range to URL if applicable
               if (scope.spreadsheet.cells === "range" && scope.spreadsheet.range !== "") {
                 url += "&range=" + scope.spreadsheet.range;
@@ -66,7 +65,6 @@ if (typeof CONFIG === "undefined") {
               .then(function (sheets) {
                 scope.published = true;
                 scope.sheets = sheets;
-                scope.spreadsheet.sheet = encodeURI(sheets[0].value);
                 scope.currentSheet = sheets[0];
               })
               .then(null, function () {
@@ -114,13 +112,7 @@ if (typeof CONFIG === "undefined") {
 
           scope.$watch("spreadsheet.range", configureURL);
           scope.$watch("spreadsheet.headerRow", configureURL);
-
-          scope.$watch("currentSheet", function (sheet) {
-            if (sheet) {
-              scope.spreadsheet.sheet = encodeURI(sheet.value);
-              configureURL();
-            }
-          });
+          scope.$watch("currentSheet", configureURL);
 
           scope.$on("picked", function (event, data) {
             scope.spreadsheet.docName = data[0].name;
@@ -187,12 +179,26 @@ app.run(["$templateCache", function($templateCache) {
     "      <select id=\"sheet\" name=\"sheet\" ng-model=\"currentSheet\" ng-options=\"sheet.label for sheet in sheets\" class=\"form-control\"></select>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
-    "      <div class=\"checkbox\">\n" +
-    "        <label for=\"headerRow\">\n" +
-    "          <input id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" type=\"checkbox\"> {{ \"spreadsheet.headerRow.label\" | translate }}\n" +
-    "        </label>\n" +
-    "        <span popover=\"{{'spreadsheet.headerRow.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
-    "              popover-placement=\"top\" rv-tooltip></span>\n" +
+    "      <label for=\"headerRow\">{{ \"spreadsheet.headerRow.label\" | translate }}</label>\n" +
+    "      <span popover=\"{{'spreadsheet.headerRow.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
+    "            popover-placement=\"top\" rv-tooltip></span>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"col-xs-6 col-md-3\">\n" +
+    "          <select id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" class=\"form-control\">\n" +
+    "            <option value=\"-1\">{{'headerRow.auto' | translate}}</option>\n" +
+    "            <option value=\"0\">0</option>\n" +
+    "            <option value=\"1\">1</option>\n" +
+    "            <option value=\"2\">2</option>\n" +
+    "            <option value=\"3\">3</option>\n" +
+    "            <option value=\"4\">4</option>\n" +
+    "            <option value=\"5\">5</option>\n" +
+    "            <option value=\"6\">6</option>\n" +
+    "            <option value=\"7\">7</option>\n" +
+    "            <option value=\"8\">8</option>\n" +
+    "            <option value=\"9\">9</option>\n" +
+    "            <option value=\"10\">10</option>\n" +
+    "          </select>\n" +
+    "        </div>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
