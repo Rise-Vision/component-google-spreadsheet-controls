@@ -181,7 +181,7 @@ app.run(["$templateCache", function($templateCache) {
     "    <div class=\"form-group\">\n" +
     "      <label for=\"headerRow\">{{ \"spreadsheet.headerRow.label\" | translate }}</label>\n" +
     "      <span popover=\"{{'spreadsheet.headerRow.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
-    "            popover-placement=\"top\" rv-tooltip></span>\n" +
+    "            popover-placement=\"right\" rv-tooltip></span>\n" +
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-6 col-md-3\">\n" +
     "          <select id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" class=\"form-control\">\n" +
