@@ -93,9 +93,12 @@ if (typeof CONFIG === "undefined") {
 
           if (ctrl) {
             scope.$watch("spreadsheet.url", function (url) {
+              var valid = true;
               if (!url || url === "") {
-                ctrl.$setValidity("required", false);
+                valid = false;
               }
+
+              ctrl.$setValidity("required", valid);
             });
           }
 
