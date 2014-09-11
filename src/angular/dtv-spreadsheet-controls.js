@@ -23,11 +23,13 @@
             defaultSpreadsheetSettings = {
               fileId: "",
               url: "",
+              sheetIndex: 0,
               cells: "sheet",
               range: "",
               headerRow: "-1",
               refresh: "60"
-            };
+            },
+            $sheetSel = $(elm).find("#sheet");
 
           function configureURL() {
             if (scope.currentSheet) {
@@ -57,7 +59,7 @@
               .then(function (sheets) {
                 scope.published = true;
                 scope.sheets = sheets;
-                scope.currentSheet = sheets[0];
+                scope.currentSheet = sheets[scope.spreadsheet.sheetIndex];
               })
               .then(null, function () {
                 scope.published = false;
@@ -107,7 +109,12 @@
 
           scope.$watch("spreadsheet.range", configureURL);
           scope.$watch("spreadsheet.headerRow", configureURL);
-          scope.$watch("currentSheet", configureURL);
+          scope.$watch("currentSheet", function (currentSheet) {
+            if (currentSheet) {
+              scope.spreadsheet.sheetIndex = $sheetSel[0].selectedIndex;
+              configureURL();
+            }
+          });
 
           scope.$on("picked", function (event, data) {
             scope.spreadsheet.docName = data[0].name;
