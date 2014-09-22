@@ -111,8 +111,22 @@
       });
   });
 
+  gulp.task("test:unit:ng", factory.testUnitAngular({
+    testFiles: [
+      "components/q/q.js",
+      "components/angular/angular.js",
+      "components/angular-mocks/angular-mocks.js",
+      "node_modules/widget-tester/mocks/common-mock.js",
+      "node_modules/widget-tester/mocks/spreadsheet-controls-http-mock.js",
+      "src/config/test.js",
+      "src/angular/*.js",
+      "test/unit/**/*spec.js",
+      "test/unit/mock-modules/*mock.js"
+    ]
+  }));
+
   gulp.task("test", ["build"], function (cb) {
-    return runSequence("test:e2e:ng", "test:metrics", cb);
+    return runSequence("test:unit:ng", "test:e2e:ng", "test:metrics", cb);
   });
 
   gulp.task("default", ["build"]);
