@@ -43,7 +43,7 @@
       });
 
       expect(element(by.id("refresh")).getAttribute("value")).
-        to.eventually.equal("60");
+        to.eventually.equal("5");
     });
 
     it("Should correctly show and populate controls by selecting a published file", function () {

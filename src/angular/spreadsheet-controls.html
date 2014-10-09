@@ -75,8 +75,8 @@
       <div class="row">
         <div class="col-xs-6 col-md-3">
           <div class="input-group">
-            <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="text" class="form-control" />
-            <span class="input-group-addon">{{'common.units.seconds' | translate}}</span>
+            <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="number" min="5" class="form-control" />
+            <span class="input-group-addon">{{'common.units.minutes' | translate}}</span>
           </div>
         </div>
       </div>
