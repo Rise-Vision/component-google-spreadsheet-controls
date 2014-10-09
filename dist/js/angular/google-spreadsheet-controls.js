@@ -35,7 +35,7 @@ if (typeof CONFIG === "undefined") {
               cells: "sheet",
               range: "",
               headerRow: "-1",
-              refresh: "60"
+              refresh: 5
             },
             $sheetSel = $(elm).find("#sheet");
 
@@ -218,8 +218,8 @@ app.run(["$templateCache", function($templateCache) {
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-6 col-md-3\">\n" +
     "          <div class=\"input-group\">\n" +
-    "            <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"text\" class=\"form-control\" />\n" +
-    "            <span class=\"input-group-addon\">{{'common.units.seconds' | translate}}</span>\n" +
+    "            <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"number\" min=\"5\" class=\"form-control\" />\n" +
+    "            <span class=\"input-group-addon\">{{'common.units.minutes' | translate}}</span>\n" +
     "          </div>\n" +
     "        </div>\n" +
     "      </div>\n" +
