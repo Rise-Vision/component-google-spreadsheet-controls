@@ -18,7 +18,7 @@
       "auto": "Auto"
     },
     "refresh": {
-      "label": "Data Refresh Interval (seconds)",
+      "label": "Data Refresh Interval",
       "tooltip": "How often to check the spreadsheet for new data. This value can be no less than 5 minutes."
     },
     "error": {
