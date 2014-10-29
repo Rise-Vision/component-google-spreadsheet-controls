@@ -177,7 +177,7 @@ app.run(["$templateCache", function($templateCache) {
     "        {{ \"spreadsheet.range.label\" | translate }}\n" +
     "      </label>\n" +
     "      <span popover=\"{{'spreadsheet.range.tooltip' | translate}}\" popover-trigger=\"click\"\n" +
-    "            popover-placement=\"top\" rv-tooltip></span>\n" +
+    "            popover-placement=\"right\" rv-tooltip></span>\n" +
     "      <div class=\"row\">\n" +
     "        <div class=\"col-md-6\">\n" +
     "          <input id=\"range\" name=\"range\" ng-model=\"spreadsheet.range\" class=\"form-control\" type=\"text\" />\n" +
