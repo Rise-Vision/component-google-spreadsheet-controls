@@ -5,7 +5,7 @@
       {{"spreadsheet.select" | translate}} &nbsp; <google-drive-picker view-id="spreadsheets"></google-drive-picker>
     </label>
     <div ng-if="!published">
-      <span class="text-danger">{{ "spreadsheet.error.publish" | translate }}</span>
+      <span class="text-danger error-publish">{{ "spreadsheet.error.publish" | translate }}</span>
     </div>
   </div>
   <div class="row">
@@ -75,10 +75,13 @@
       <div class="row">
         <div class="col-xs-6 col-md-3">
           <div class="input-group">
-            <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="number" min="5" class="form-control" />
+            <input id="refresh" name="refresh" ng-model="spreadsheet.refresh" type="number" min="5" required class="form-control" />
             <span class="input-group-addon">{{'common.units.minutes' | translate}}</span>
           </div>
         </div>
+      </div>
+      <div ng-hide="spreadsheet.refresh >= 5">
+        <span class="text-danger error-refresh">{{ "spreadsheet.error.refresh" | translate }}</span>
       </div>
     </div>
   </div>
