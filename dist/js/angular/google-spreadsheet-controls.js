@@ -148,7 +148,7 @@ app.run(["$templateCache", function($templateCache) {
     "      {{\"spreadsheet.select\" | translate}} &nbsp; <google-drive-picker view-id=\"spreadsheets\"></google-drive-picker>\n" +
     "    </label>\n" +
     "    <div ng-if=\"!published\">\n" +
-    "      <span class=\"text-danger\">{{ \"spreadsheet.error.publish\" | translate }}</span>\n" +
+    "      <span class=\"text-danger error-publish\">{{ \"spreadsheet.error.publish\" | translate }}</span>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"row\">\n" +
@@ -218,10 +218,13 @@ app.run(["$templateCache", function($templateCache) {
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-6 col-md-3\">\n" +
     "          <div class=\"input-group\">\n" +
-    "            <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"number\" min=\"5\" class=\"form-control\" />\n" +
+    "            <input id=\"refresh\" name=\"refresh\" ng-model=\"spreadsheet.refresh\" type=\"number\" min=\"5\" required class=\"form-control\" />\n" +
     "            <span class=\"input-group-addon\">{{'common.units.minutes' | translate}}</span>\n" +
     "          </div>\n" +
     "        </div>\n" +
+    "      </div>\n" +
+    "      <div ng-hide=\"spreadsheet.refresh >= 5\">\n" +
+    "        <span class=\"text-danger error-refresh\">{{ \"spreadsheet.error.refresh\" | translate }}</span>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +

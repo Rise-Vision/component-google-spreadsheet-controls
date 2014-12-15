@@ -23,7 +23,7 @@
       expect(element(by.id("spreadsheet")).isDisplayed()).
         to.eventually.be.false;
 
-      expect(element(by.css(".text-danger")).isPresent()).
+      expect(element(by.css(".text-danger.error-publish")).isPresent()).
         to.eventually.be.false;
 
       expect(element(by.id("spreadsheet-controls")).isDisplayed()).
@@ -44,6 +44,9 @@
 
       expect(element(by.id("refresh")).getAttribute("value")).
         to.eventually.equal("5");
+
+      expect(element(by.css(".text-danger.error-refresh")).isDisplayed()).
+        to.eventually.be.false;
     });
 
     it("Should correctly show and populate controls by selecting a published file", function () {
@@ -61,7 +64,7 @@
       expect(element(by.css("#spreadsheet a")).getAttribute("href")).
         to.eventually.equal("https://test-published/");
       // no error message should be present
-      expect(element(by.css(".text-danger")).isPresent()).
+      expect(element(by.css(".text-danger.error-publish")).isPresent()).
         to.eventually.be.false;
 
       element.all(by.css("#sheet option")).then(function (elements) {
@@ -119,8 +122,22 @@
       expect(element(by.css("#spreadsheet a")).getAttribute("href")).
         to.eventually.equal("https://test-not-published/");
       // error message should be present
-      expect(element(by.css(".text-danger")).isPresent()).
+      expect(element(by.css(".text-danger.error-publish")).isPresent()).
         to.eventually.not.be.null;
+    });
+
+    it("Should show error message if refresh below 5", function () {
+      // open dialog
+      element(by.css(".btn-google-drive")).click();
+      // simulate picks
+      element(by.id("published-pick")).click();
+      // input value for refresh
+      element(by.css("input[name=refresh]")).clear();
+      element(by.css("input[name=refresh]")).sendKeys("3");
+
+      expect(element(by.css(".text-danger.error-refresh")).isDisplayed()).
+        to.eventually.be.true;
+
     });
 
   });
