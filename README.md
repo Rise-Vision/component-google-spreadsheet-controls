@@ -1,4 +1,4 @@
-# Google Spreadsheet Controls [![Build Status](http://devtools1.risevision.com:8080/job/Component-Google-Spreadsheet-Controls-Master/badge/icon)](http://devtools1.risevision.com:8080/job/Component-Google-Spreadsheet-Controls-Master/)
+# Google Spreadsheet Controls [![Circle CI](https://circleci.com/gh/Rise-Vision/component-google-spreadsheet-controls/tree/master.svg?style=svg)](https://circleci.com/gh/Rise-Vision/component-google-spreadsheet-controls/tree/master)
 
 ## Introduction
 
