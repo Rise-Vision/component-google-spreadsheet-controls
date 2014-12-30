@@ -10,7 +10,8 @@ if (typeof CONFIG === "undefined") {
   "use strict";
 
   angular.module("risevision.widget.common.google-spreadsheet-controls", [
-    "risevision.widget.common.translate",
+    "risevision.widget.common.google-spreadsheet-controls.service",
+    "risevision.common.i18n",
     "risevision.widget.common.google-drive-picker",
     "risevision.widget.common.tooltip"])
     .directive("spreadsheetControls", ["$log", "$templateCache", "sheets",
@@ -237,7 +238,7 @@ app.run(["$templateCache", function($templateCache) {
 
   "use strict";
 
-  angular.module("risevision.widget.common.google-spreadsheet-controls")
+  angular.module("risevision.widget.common.google-spreadsheet-controls.service", [])
     .constant("SPREADSHEET_API_BASE", "https://spreadsheets.google.com/feeds/worksheets/")
     .constant("SPREADSHEET_API_SUFFIX", "/public/basic")
 

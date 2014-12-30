@@ -2,7 +2,7 @@
 
   "use strict";
 
-  angular.module("risevision.widget.common.google-spreadsheet-controls")
+  angular.module("risevision.widget.common.google-spreadsheet-controls.service", [])
     .constant("SPREADSHEET_API_BASE", "https://spreadsheets.google.com/feeds/worksheets/")
     .constant("SPREADSHEET_API_SUFFIX", "/public/basic")
 
