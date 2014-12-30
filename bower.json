@@ -24,6 +24,10 @@
     "angular": "1.2.18",
     "google-drive-picker": "https://github.com/Rise-Vision/component-google-drive-picker.git",
     "jquery": "1.11.0",
-    "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git"
+    "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git",
+    "rv-common-i18n": "https://github.com/Rise-Vision/common-i18n.git"
+  },
+  "resolutions": {
+    "common-style": "~1.1.4"
   }
 }

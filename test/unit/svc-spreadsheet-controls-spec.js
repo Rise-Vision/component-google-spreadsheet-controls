@@ -31,7 +31,7 @@ describe("Services: sheets", function() {
     }
   };
 
-  beforeEach(module("risevision.widget.common.google-spreadsheet-controls"));
+  beforeEach(module("risevision.widget.common.google-spreadsheet-controls.service"));
 
   beforeEach(inject(function (_sheets_, _SPREADSHEET_API_BASE_, _SPREADSHEET_API_SUFFIX_, $httpBackend) {
     sheetsService = _sheets_;
