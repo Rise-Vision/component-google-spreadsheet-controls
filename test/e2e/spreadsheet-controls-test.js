@@ -37,9 +37,9 @@
 
       element.all(by.css("#headerRow option")).then(function (elements) {
         // headerRow select element should display 12 options
-        expect(elements.length).to.equal(12);
-        // 1st option should be selected
-        expect(elements[0].getAttribute("selected")).to.eventually.not.be.null;
+        expect(elements.length).to.equal(11);
+        // 2nd option ("1") to be selected
+        expect(elements[1].getAttribute("selected")).to.eventually.not.be.null;
       });
 
       expect(element(by.id("refresh")).getAttribute("value")).

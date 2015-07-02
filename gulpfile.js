@@ -1,11 +1,10 @@
 /* jshint node: true */
 
-(function () {
+(function (console) {
   "use strict";
 
   var gulp = require("gulp");
   var gutil = require("gulp-util");
-  var rimraf = require("gulp-rimraf");
   var concat = require("gulp-concat");
   var bump = require("gulp-bump");
   var html2js = require("gulp-html2js");
@@ -15,18 +14,23 @@
   var path = require("path");
   var rename = require("gulp-rename");
   var factory = require("widget-tester").gulpTaskFactory;
+  var del = require("del");
+  var bower = require("gulp-bower");
+  var colors = require("colors");
 
-  gulp.task("clean-dist", function () {
-    return gulp.src("dist", {read: false})
-      .pipe(rimraf());
+  gulp.task("clean-dist", function (cb) {
+    del(['./dist/**'], cb);
   });
 
-  gulp.task("clean-tmp", function () {
-    return gulp.src("tmp", {read: false})
-      .pipe(rimraf());
+  gulp.task("clean-tmp", function (cb) {
+    del(['./tmp/**'], cb);
   });
 
   gulp.task("clean", ["clean-dist", "clean-tmp"]);
+
+  gulp.task("clean-bower", function(cb){
+    del(["./components/**"], cb);
+  });
 
   gulp.task("config", function() {
     var env = process.env.NODE_ENV || "dev";
@@ -44,9 +48,7 @@
   });
 
   gulp.task("lint", function() {
-    return gulp.src([
-      "src/**/*.js",
-      "test/**/*.js"])
+    return gulp.src("src/**/*.js")
       .pipe(jshint())
       .pipe(jshint.reporter("jshint-stylish"))
       .pipe(jshint.reporter("fail"));
@@ -83,10 +85,6 @@
       .pipe(gulp.dest("dist/js"));
   });
 
-  gulp.task("build", function (cb) {
-    runSequence(["clean", "config"], "js-uglify", cb);
-  });
-
   gulp.task("e2e:server-close", factory.testServerClose());
   gulp.task("e2e:server", factory.testServer());
   gulp.task("webdriver_update", factory.webdriveUpdate());
@@ -120,10 +118,29 @@
     ]
   }));
 
+  // ***** Primary Tasks ***** //
+  gulp.task("bower-clean-install", ["clean-bower"], function(cb){
+    return bower().on("error", function(err) {
+      console.log(err);
+      cb();
+    });
+  });
+
   gulp.task("test", ["build"], function (cb) {
     return runSequence("test:unit:ng", "test:e2e:ng", "test:metrics", cb);
   });
 
-  gulp.task("default", ["build"]);
+  gulp.task("build", function (cb) {
+    runSequence(["clean", "config"], "js-uglify", cb);
+  });
 
-})();
+  gulp.task("default", [], function() {
+    console.log("********************************************************************".yellow);
+    console.log("  gulp bower-clean-install: delete and re-install bower components".yellow);
+    console.log("  gulp build: build a distribution version".yellow);
+    console.log("  gulp test: run e2e and unit tests".yellow);
+    console.log("********************************************************************".yellow);
+    return true;
+  });
+
+})(console);
