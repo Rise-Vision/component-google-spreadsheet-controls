@@ -35,7 +35,7 @@ if (typeof CONFIG === "undefined") {
               sheetIndex: 0,
               cells: "sheet",
               range: "",
-              headerRow: "-1",
+              headerRow: "1",
               refresh: 5
             },
             $sheetSel = $(elm).find("#sheet");
@@ -137,9 +137,9 @@ if (typeof CONFIG === "undefined") {
 }());
 
 (function(module) {
-try { app = angular.module("risevision.widget.common.google-spreadsheet-controls"); }
-catch(err) { app = angular.module("risevision.widget.common.google-spreadsheet-controls", []); }
-app.run(["$templateCache", function($templateCache) {
+try { module = angular.module("risevision.widget.common.google-spreadsheet-controls"); }
+catch(err) { module = angular.module("risevision.widget.common.google-spreadsheet-controls", []); }
+module.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("spreadsheet-controls.html",
     "<div class=\"section\">\n" +
@@ -196,7 +196,6 @@ app.run(["$templateCache", function($templateCache) {
     "      <div class=\"row\">\n" +
     "        <div class=\"col-xs-6 col-md-3\">\n" +
     "          <select id=\"headerRow\" name=\"headerRow\" ng-model=\"spreadsheet.headerRow\" class=\"form-control\">\n" +
-    "            <option value=\"-1\">{{'spreadsheet.headerRow.auto' | translate}}</option>\n" +
     "            <option value=\"0\">0</option>\n" +
     "            <option value=\"1\">1</option>\n" +
     "            <option value=\"2\">2</option>\n" +

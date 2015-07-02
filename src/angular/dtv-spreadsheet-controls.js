@@ -27,7 +27,7 @@
               sheetIndex: 0,
               cells: "sheet",
               range: "",
-              headerRow: "-1",
+              headerRow: "1",
               refresh: 5
             },
             $sheetSel = $(elm).find("#sheet");
