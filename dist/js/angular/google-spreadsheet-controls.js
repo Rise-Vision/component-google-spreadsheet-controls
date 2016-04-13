@@ -1,10 +1,3 @@
-/* global CONFIG: true */
-/* exported CONFIG */
-if (typeof CONFIG === "undefined") {
-  var CONFIG = {
-    // variables go here
-  };
-}
 
 (function () {
   "use strict";
@@ -249,9 +242,9 @@ module.run(["$templateCache", function($templateCache) {
             var option, href, sheets = [];
 
             angular.forEach(data.feed.entry, function (value) {
-              option = document.createElement("option");
+              option = {};
               //Sheet name
-              option.text = value.title.$t;
+              option.label = value.title.$t;
               /* Visualization API doesn't refresh properly if 'pub' parameter is
                present, so remove it.
                */

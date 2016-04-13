@@ -60,7 +60,7 @@ describe("Services: sheets", function() {
     sheetsService.getSheets("published").then(function (results) {
       expect(results).be.defined;
       expect(results.length).to.equal(2);
-      expect(results[0].text).equal("Worksheet 1");
+      expect(results[0].label).equal("Worksheet 1");
       expect(results[1].value).equal("https://test=published&sheet=test2");
     });
     httpBackend.flush();
