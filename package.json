@@ -1,6 +1,6 @@
 {
   "name": "component-google-spreadsheet-controls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A widget settings UI component to provide various controls for configuration of a Google Spreadsheet",
   "main": "gulpfile.js",
   "scripts": {
@@ -18,11 +18,12 @@
   },
   "homepage": "https://github.com/Rise-Vision/component-google-spreadsheet-controls",
   "devDependencies": {
-    "chai": "~1.9.1",
-    "chai-as-promised": "~4.1.1",
+    "bower": "^1.5.3",
+    "chai": "^2.1.2",
+    "chai-as-promised": "^4.3.0",
     "colors": "~1.0.3",
     "del": "~1.1.1",
-    "gulp": "~3.8.3",
+    "gulp": "^3.9.0",
     "gulp-bower": "~0.0.10",
     "gulp-bump": "~0.1.8",
     "gulp-concat": "^2.2.0",
@@ -31,11 +32,8 @@
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "~2.2.17",
-    "gulp-watch": "^0.6.8",
-    "jshint-stylish": "^0.2.0",
-    "mocha": "~1.20.1",
+    "jshint-stylish": "^2.1.0",
     "phantomjs": "^1.9.7-9",
-    "protractor": "~1.0.0",
     "run-sequence": "^0.3.2",
     "widget-tester": "git://github.com/Rise-Vision/widget-tester.git"
   }

@@ -1,7 +1,9 @@
+machine:
+  node:
+    version: 4.2.2
 dependencies:
   pre:
     - npm install -g gulp
-    - npm install -g casperjs
   post:
     - bower install
     - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
